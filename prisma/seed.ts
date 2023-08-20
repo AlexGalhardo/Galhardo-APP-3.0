@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 
 const main = async () => {
 	await prisma.users.deleteMany({});
-	await prisma.game.deleteMany({});
+	await prisma.games.deleteMany({});
 	await prisma.books.deleteMany({});
 	await prisma.movies.deleteMany({});
 	await prisma.tvShows.deleteMany({});
@@ -131,7 +131,7 @@ const main = async () => {
 		skipDuplicates: true,
 	});
 
-	await prisma.game.createMany({
+	await prisma.games.createMany({
 		data: [
 			{
 				title: "God of War Ragnarök",

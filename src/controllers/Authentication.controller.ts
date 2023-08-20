@@ -20,6 +20,7 @@ export default class AuthenticationController {
 	}
 
 	async postLogin(req: Request, res: Response, next: NextFunction) {
+		console.log('this.authenticateUserUseCase => ', this.authenticateUserUseCase)
 		try {
 			await this.authenticateUserUseCase.execute(req, res)
 		} catch (exception) {

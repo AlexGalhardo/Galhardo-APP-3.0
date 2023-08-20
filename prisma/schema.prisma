@@ -78,7 +78,6 @@ model games {
     genres               String
     amazon_link          String?   @unique
     stripe_checkout_link String?   @unique
-    created_at_ptbr      String
     created_at           DateTime  @default(now())
     updated_at           DateTime?
 
@@ -97,7 +96,6 @@ model books {
     author               String
     amazon_link          String?   @unique
     stripe_checkout_link String?   @unique
-    created_at_ptbr      String
     created_at           DateTime  @default(now())
     updated_at           DateTime?
 
@@ -174,7 +172,6 @@ model shopTransactions {
 
 model subscriptionsTransactions {
     id                   String   @id @default(uuid())
-    created_at_ptbr      String
     created_at           DateTime @default(now())
     transaction_id       String
     status               String
