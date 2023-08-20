@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 
-import Blog from "../../repositories/Blog.repository";
-import Books from "../../repositories/Books.repository";
-import Games from "../../repositories/Games.repository.ts";
-import Movies from "../../repositories/Movies.repository";
-import TVShows from "../../repositories/TVShows.repository";
+import Blog from "../repositories/Blog.repository";
+import Books from "../repositories/Books.repository";
+import Games from "../repositories/Games.repository";
+import Movies from "../repositories/Movies.repository";
+import TVShows from "../repositories/TVShows.repository";
 import { createBlogDTO } from "src/utils/InputTypes";
 
 export default class AdminController {

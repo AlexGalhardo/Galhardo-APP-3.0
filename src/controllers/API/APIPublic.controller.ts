@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 
 import Blog from "../../repositories/Blog.repository";
 import Books from "../../repositories/Books.repository";
-import Games from "../../repositories/Games.repository.ts";
+import Games from "../../repositories/Games.repository";
 import Movies from "../../repositories/Movies.repository";
 import TVShows from "../../repositories/TVShows.repository";
 import Users from "../../repositories/Users.repository";

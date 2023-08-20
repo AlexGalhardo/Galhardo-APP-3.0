@@ -1,12 +1,16 @@
 import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
 import randomToken from "rand-token";
-
 import NodeMailer from "../utils/NodeMailer";
-import Users from "../repositories/Users.repository";
+import UsersRepository from "../repositories/Users.repository";
+import AuthenticateUserUseCase, { AuthenticateUserUseCasePort } from "../useCases/AuthenticateUser.useCase";
 
-export default class AuthController {
-	static async getViewLogin (req: Request, res: Response) {
+export default class AuthenticationController {
+	constructor(
+		private readonly authenticateUserUseCase: AuthenticateUserUseCasePort = new AuthenticateUserUseCase(new UsersRepository())
+	) { }
+
+	async getViewLogin(req: Request, res: Response) {
 		return res.render("pages/auth/login", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
@@ -15,45 +19,15 @@ export default class AuthController {
 		});
 	}
 
-	static async postLogin (req: Request, res: Response, next: NextFunction) {
+	async postLogin(req: Request, res: Response, next: NextFunction) {
 		try {
-			const errors = validationResult(req);
-
-			if (!req.recaptcha?.error) {
-				if (!errors.isEmpty()) {
-					req.flash("warning", `${errors.array()[0].msg}`);
-					return res.redirect("/login");
-				}
-			} else {
-				req.flash("warning", `Invalid Recaptcha!`);
-				return res.redirect("/login");
-			}
-
-			const { email, password } = req.body;
-
-			const user = await Users.login(email, password);
-
-			if (user) {
-				const confirmedEmail = await Users.emailIsConfirmed(email);
-
-				if (!confirmedEmail) {
-					req.flash("warning", `You need to confirm your email!`);
-					return res.redirect("/login");
-				}
-			} else {
-				req.flash("warning", `Email OR Password Inválid!`);
-				return res.redirect("/login");
-			}
-
-			global.SESSION_USER = user;
-			req.flash("success", `Welcome back, ${user.name} :D`);
-			return res.redirect("/");
-		} catch (error) {
-			return next(error);
+			await this.authenticateUserUseCase.execute(req, res)
+		} catch (exception) {
+			return next(exception);
 		}
 	}
 
-	static getViewRegister (req: Request, res: Response) {
+	getViewRegister(req: Request, res: Response) {
 		const { username, email, github_id, github_avatar, google_id, google_avatar, facebook_id, facebook_avatar } =
 			req.query;
 
@@ -78,7 +52,7 @@ export default class AuthController {
 		});
 	}
 
-	static async postRegister (req: Request, res: Response, next: NextFunction) {
+	async postRegister(req: Request, res: Response, next: NextFunction) {
 		try {
 			const errors = validationResult(req);
 
@@ -131,14 +105,14 @@ export default class AuthController {
 		}
 	}
 
-	static getViewForgetPassword (req: Request, res: Response) {
+	getViewForgetPassword(req: Request, res: Response) {
 		return res.render("pages/auth/forgetPassword", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 		});
 	}
 
-	static async postForgetPassword (req: Request, res: Response) {
+	async postForgetPassword(req: Request, res: Response) {
 		const { email } = req.body;
 
 		const resetPasswordToken = randomToken.generate(24);
@@ -152,11 +126,11 @@ export default class AuthController {
 		return res.redirect("/forgetPassword");
 	}
 
-	static async sendToForgetPassword (req: Request, res: Response) {
+	async sendToForgetPassword(req: Request, res: Response) {
 		return res.redirect("/forgetPassword");
 	}
 
-	static async getViewResetPassword (req: Request, res: Response) {
+	async getViewResetPassword(req: Request, res: Response) {
 		const { email, token } = req.params;
 
 		if (!email || !token) {
@@ -174,7 +148,7 @@ export default class AuthController {
 		});
 	}
 
-	static async postResetPassword (req: Request, res: Response) {
+	async postResetPassword(req: Request, res: Response) {
 		const { email, new_password } = req.body;
 
 		if (!(await Users.resetPassword(email, new_password))) {
@@ -185,13 +159,13 @@ export default class AuthController {
 		return res.redirect("/login");
 	}
 
-	static getViewResendConfirmEmailLink (req: Request, res: Response) {
+	getViewResendConfirmEmailLink(req: Request, res: Response) {
 		return res.render("pages/auth/confirmEmail", {
 			flash_success: req.flash("success"),
 		});
 	}
 
-	static async postSendConfirmEmailLink (req: Request, res: Response) {
+	async postSendConfirmEmailLink(req: Request, res: Response) {
 		const { email } = req.body;
 
 		const confirmEmailToken = randomToken.generate(24);
@@ -207,7 +181,7 @@ export default class AuthController {
 		return res.redirect("/confirmEmail");
 	}
 
-	static async getVerifyIfConfirmEmailURLIsValid (req: Request, res: Response) {
+	async getVerifyIfConfirmEmailURLIsValid(req: Request, res: Response) {
 		const { email, token } = req.params;
 
 		if (await Users.verifyConfirmEmailToken(email, token)) {

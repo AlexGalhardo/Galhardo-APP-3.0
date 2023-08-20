@@ -7,7 +7,7 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model User {
+model users {
     id                                 String    @id @default(uuid())
     name                               String
     email                              String    @unique
@@ -24,7 +24,7 @@ model User {
     address_city                       String?
     address_state                      String?
     address_country                    String?
-    shop_cart_itens                    String?
+    shop_cart_itens                    String    @default("")
     stripe_customer_id                 String?   @unique
     stripe_card_id                     String?   @unique
     stripe_card_number                 String?
@@ -40,8 +40,8 @@ model User {
     created_at                         DateTime  @default(now())
     updated_at                         DateTime?
 
-    StripeShopTransaction         StripeShopTransaction[]
-    StripeSubscriptionTransaction StripeSubscriptionTransaction[]
+    StripeShopTransaction         shopTransactions[]
+    StripeSubscriptionTransaction subscriptionsTransactions[]
 
     @@unique(fields: [email, confirm_email_token], name: "confirmEmailTokenIsValid")
     @@unique(fields: [email, reset_password_token], name: "resetPasswordTokenIsValid")
@@ -50,7 +50,7 @@ model User {
     @@map("users")
 }
 
-model Blog {
+model blog {
     id         String    @id @default(uuid())
     title      String    @unique
     resume     String    @unique
@@ -64,7 +64,7 @@ model Blog {
     @@map("blog")
 }
 
-model Game {
+model games {
     id                   String    @id @default(uuid())
     title                String    @unique
     year_release         Int
@@ -78,13 +78,14 @@ model Game {
     genres               String
     amazon_link          String?   @unique
     stripe_checkout_link String?   @unique
+    created_at_ptbr      String
     created_at           DateTime  @default(now())
     updated_at           DateTime?
 
     @@map("games")
 }
 
-model Book {
+model books {
     id                   String    @id @default(uuid())
     title                String    @unique
     year_release         Int
@@ -96,13 +97,14 @@ model Book {
     author               String
     amazon_link          String?   @unique
     stripe_checkout_link String?   @unique
+    created_at_ptbr      String
     created_at           DateTime  @default(now())
     updated_at           DateTime?
 
     @@map("books")
 }
 
-model Movie {
+model movies {
     id             String    @id @default(uuid())
     title          String    @unique
     year_release   Int
@@ -119,7 +121,7 @@ model Movie {
     @@map("movies")
 }
 
-model Tvshow {
+model tvShows {
     id             String    @id @default(uuid())
     title          String    @unique
     year_release   Int
@@ -136,7 +138,7 @@ model Tvshow {
     @@map("tv_shows")
 }
 
-model StripeShopTransaction {
+model shopTransactions {
     id                             String   @id @default(uuid())
     transaction_id                 String   @unique
     total_amount                   Int
@@ -151,7 +153,7 @@ model StripeShopTransaction {
     products                       String
     stripe_customer_id             String
     user_id                        String
-    user                           User     @relation(fields: [user_id], references: [id])
+    user                           users    @relation(fields: [user_id], references: [id])
     user_email                     String
     user_phone                     String
     user_name                      String
@@ -164,18 +166,20 @@ model StripeShopTransaction {
     shipping_address_country       String
     shipping_carrier               String
     shipping_fee                   Int
+    created_at_ptbr                String
     created_at                     DateTime @default(now())
 
-    @@map("stripe_shop_transactions")
+    @@map("shopTransactions")
 }
 
-model StripeSubscriptionTransaction {
+model subscriptionsTransactions {
     id                   String   @id @default(uuid())
+    created_at_ptbr      String
     created_at           DateTime @default(now())
     transaction_id       String
     status               String
     user_id              String
-    user                 User     @relation(fields: [user_id], references: [id])
+    user                 users    @relation(fields: [user_id], references: [id])
     user_email           String
     user_name            String
     stripe_customer_id   String
@@ -191,5 +195,5 @@ model StripeSubscriptionTransaction {
     current_period_end   DateTime
     cancel_at_period_end Boolean
 
-    @@map("stripe_subscriptions_transactions")
+    @@map("subscriptions_transactions")
 }
