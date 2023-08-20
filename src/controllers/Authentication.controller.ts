@@ -10,7 +10,7 @@ export default class AuthenticationController {
 		private readonly authenticateUserUseCase: AuthenticateUserUseCasePort = new AuthenticateUserUseCase(new UsersRepository())
 	) { }
 
-	async getViewLogin(req: Request, res: Response) {
+	getViewLogin(req: Request, res: Response) {
 		return res.render("pages/auth/login", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
@@ -127,7 +127,7 @@ export default class AuthenticationController {
 		return res.redirect("/forgetPassword");
 	}
 
-	async sendToForgetPassword(req: Request, res: Response) {
+	sendToForgetPassword(res: Response) {
 		return res.redirect("/forgetPassword");
 	}
 
