@@ -1,26 +1,33 @@
 {
 	"compilerOptions": {
-		"target": "esnext",
+		"target": "es2020",
 		"module": "esnext",
-		"allowJs": false,
-		"rootDir": "src/",
-		"outDir": "dist",
+		"allowJs": true,
 		"removeComments": true,
 		"resolveJsonModule": true,
-		"sourceMap": false,
+		"sourceMap": true,
+		"outDir": "dist",
 		"strict": false,
 		"baseUrl": ".",
 		"forceConsistentCasingInFileNames": true,
-		"esModuleInterop": false,
-		"experimentalDecorators": false,
-		"emitDecoratorMetadata": false,
-		"moduleResolution": "Node",
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"moduleResolution": "node",
 		"skipLibCheck": true,
+		"rootDirs": [
+			"src"
+		],
+		"lib": [
+			"es2020"
+		],
+		"types": [
+			"node"
+		]
 	},
 	"include": [
-		"src/",
-		"src/views",
-		"tests"
+		"src/**/*",
+		"src/repositories/json/AccountsRepository.json"
 	],
 	"exclude": [
 		"node_modules",

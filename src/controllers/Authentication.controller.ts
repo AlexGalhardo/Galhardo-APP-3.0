@@ -6,9 +6,7 @@ import UsersRepository from "../repositories/Users.repository";
 import AuthenticateUserUseCase, { AuthenticateUserUseCasePort } from "../useCases/AuthenticateUser.useCase";
 
 export default class AuthenticationController {
-	constructor(
-		private readonly authenticateUserUseCase: AuthenticateUserUseCasePort = new AuthenticateUserUseCase(new UsersRepository())
-	) { }
+	// private readonly authenticateUserUseCase: AuthenticateUserUseCasePort = new AuthenticateUserUseCase(new UsersRepository())
 
 	getViewLogin(req: Request, res: Response) {
 		return res.render("pages/auth/login", {
@@ -20,9 +18,8 @@ export default class AuthenticationController {
 	}
 
 	async postLogin(req: Request, res: Response, next: NextFunction) {
-		console.log('this.authenticateUserUseCase => ', this.authenticateUserUseCase)
 		try {
-			await this.authenticateUserUseCase.execute(req, res)
+			await new AuthenticateUserUseCase(new UsersRepository()).execute(req, res)
 		} catch (exception) {
 			return next(exception);
 		}
