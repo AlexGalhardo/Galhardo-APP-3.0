@@ -23,15 +23,15 @@ class TelegramBOTLogger {
         this.baseUrl = `https://api.telegram.org/bot${token}`;
     }
 
-    isThereToken (token: string) {
+    isThereToken(token: string) {
         if (!token) throw new Error("There is no Telegram Token in TelegramLogger Class Constructor");
     }
 
-    isThereChannel (channel: string) {
+    isThereChannel(channel: string) {
         if (!channel) throw new Error("There is no Telegram Channel name in TelegramLogger Class Constructor");
     }
 
-    emojiMap () {
+    emojiMap() {
         return {
             CONTACT: "💬",
             ERROR: "🚨",
@@ -40,7 +40,7 @@ class TelegramBOTLogger {
         };
     }
 
-    sendMessage (level: string, type: string, message: string) {
+    sendMessage(level: string, type: string, message: string) {
         const emoji = this.emojiMap()[level];
 
         const messageToSend = `${emoji} ${type} ${emoji}\n\n <b>CREATED_AT:</b> ${DateTime.getNow()}\n ${message}`;
@@ -52,7 +52,7 @@ class TelegramBOTLogger {
         this.sendRequest(url);
     }
 
-    logContact (contactObject: inputContactObject) {
+    logContact(contactObject: inputContactObject) {
         const emoji = this.emojiMap().CONTACT;
 
         const log = `
@@ -72,7 +72,7 @@ class TelegramBOTLogger {
         this.sendRequest(url);
     }
 
-    logShopTransaction (shopTransactionObject: inputShopTransactionObject) {
+    logShopTransaction(shopTransactionObject: inputShopTransactionObject) {
         const emoji = this.emojiMap().SHOP;
 
         const log = `
@@ -105,7 +105,7 @@ class TelegramBOTLogger {
         this.sendRequest(url);
     }
 
-    logSubscriptionTransaction (subscriptionTransactionObject: inputSubscriptionTransactionObject) {
+    logSubscriptionTransaction(subscriptionTransactionObject: inputSubscriptionTransactionObject) {
         const emoji = this.emojiMap().SUBSCRIPTION;
 
         const log = `
@@ -132,7 +132,7 @@ class TelegramBOTLogger {
         this.sendRequest(url);
     }
 
-    sendRequest (url: string) {
+    sendRequest(url: string) {
         return https
             .get(url, (res) => {
                 const { statusCode } = res;

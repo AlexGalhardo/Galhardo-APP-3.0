@@ -1,167 +1,167 @@
 class Primitives {
     constructor() {
-        this.isAllStrings = this.isAllStrings.bind(this)
-        this.isAllNumbers = this.isAllNumbers.bind(this)
-        this.isAllBooleans = this.isAllBooleans.bind(this)
-        this.isAllObjects = this.isAllObjects.bind(this)
-        this.isAllArrays = this.isAllArrays.bind(this)
-        this.isAllFunctions = this.isAllFunctions.bind(this)
-        this.isAllUndefined = this.isAllUndefined.bind(this)
-        this.isAllNull = this.isAllNull.bind(this)
-        this.isAllSymbols = this.isAllSymbols.bind(this)
-        this.isAllBigInts = this.isAllBigInts.bind(this)
-        this.isPrimitive = this.isPrimitive.bind(this)
-        this.isAllPrimitives = this.isAllPrimitives.bind(this)
-        this.isAllDates = this.isAllDates.bind(this)
-        this.isAllRegExps = this.isAllRegExps.bind(this)
-        this.isNaN = this.isNaN.bind(this)
-        this.isAllNaNs = this.isAllNaNs.bind(this)
-        this.isAllInfinities = this.isAllInfinities.bind(this)
-        this.isInfinity = this.isInfinity.bind(this)
-        this.hasValue = this.hasValue.bind(this)
+        this.isAllStrings = this.isAllStrings.bind(this);
+        this.isAllNumbers = this.isAllNumbers.bind(this);
+        this.isAllBooleans = this.isAllBooleans.bind(this);
+        this.isAllObjects = this.isAllObjects.bind(this);
+        this.isAllArrays = this.isAllArrays.bind(this);
+        this.isAllFunctions = this.isAllFunctions.bind(this);
+        this.isAllUndefined = this.isAllUndefined.bind(this);
+        this.isAllNull = this.isAllNull.bind(this);
+        this.isAllSymbols = this.isAllSymbols.bind(this);
+        this.isAllBigInts = this.isAllBigInts.bind(this);
+        this.isPrimitive = this.isPrimitive.bind(this);
+        this.isAllPrimitives = this.isAllPrimitives.bind(this);
+        this.isAllDates = this.isAllDates.bind(this);
+        this.isAllRegExps = this.isAllRegExps.bind(this);
+        this.isNaN = this.isNaN.bind(this);
+        this.isAllNaNs = this.isAllNaNs.bind(this);
+        this.isAllInfinities = this.isAllInfinities.bind(this);
+        this.isInfinity = this.isInfinity.bind(this);
+        this.hasValue = this.hasValue.bind(this);
     }
 
     public isString(value: unknown): boolean {
-        return typeof value === 'string'
+        return typeof value === "string";
     }
 
     public isAllStrings(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isString(value)) return false
+            if (!this.isString(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isNumber(value: unknown): boolean {
-        return typeof value === 'number'
+        return typeof value === "number";
     }
 
     public isAllNumbers(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isNumber(value)) return false
+            if (!this.isNumber(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isBoolean(value: unknown): boolean {
-        return typeof value === 'boolean'
+        return typeof value === "boolean";
     }
 
     public isAllBooleans(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isBoolean(value)) return false
+            if (!this.isBoolean(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isObject(value: unknown): boolean {
-        return typeof value === 'object'
+        return typeof value === "object";
     }
 
     public isAllObjects(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isObject(value)) return false
+            if (!this.isObject(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isArray(value: unknown): boolean {
-        return Array.isArray(value)
+        return Array.isArray(value);
     }
 
     public isAllArrays(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isArray(value)) return false
+            if (!this.isArray(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isFunction(value: unknown): boolean {
-        return typeof value === 'function'
+        return typeof value === "function";
     }
 
     public isAllFunctions(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isFunction(value)) return false
+            if (!this.isFunction(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isUndefined(value: unknown): boolean {
-        return typeof value === 'undefined'
+        return typeof value === "undefined";
     }
 
     public isAllUndefined(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isUndefined(value)) return false
+            if (!this.isUndefined(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isNull(value: unknown): boolean {
-        return value === null
+        return value === null;
     }
 
     public isAllNull(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isNull(value)) return false
+            if (!this.isNull(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isDate(value: unknown): boolean {
-        return value instanceof Date
+        return value instanceof Date;
     }
 
     public isAllDates(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isDate(value)) return false
+            if (!this.isDate(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isSymbol(value: unknown): boolean {
-        return typeof value === 'symbol'
+        return typeof value === "symbol";
     }
 
     public isAllSymbols(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isSymbol(value)) return false
+            if (!this.isSymbol(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isBigInt(value: unknown): boolean {
-        return typeof value === 'bigint'
+        return typeof value === "bigint";
     }
 
     public isAllBigInts(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isBigInt(value)) return false
+            if (!this.isBigInt(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isRegExp(value: unknown): boolean {
-        return value instanceof RegExp
+        return value instanceof RegExp;
     }
 
     public isAllRegExps(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isRegExp(value)) return false
+            if (!this.isRegExp(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isPromise(value: unknown): boolean {
-        return value instanceof Promise
+        return value instanceof Promise;
     }
 
     public isAllPromises(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isPromise(value)) return false
+            if (!this.isPromise(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isPrimitive(value: unknown): boolean {
@@ -173,40 +173,40 @@ class Primitives {
             this.isBigInt(value) ||
             this.isUndefined(value) ||
             this.isNull(value)
-        )
+        );
     }
 
     public isAllPrimitives(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isPrimitive(value)) return false
+            if (!this.isPrimitive(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isInfinity(value: unknown): boolean {
-        return value === Infinity || value === -Infinity
+        return value === Infinity || value === -Infinity;
     }
 
     public isAllInfinities(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isInfinity(value)) return false
+            if (!this.isInfinity(value)) return false;
         }
-        return true
+        return true;
     }
 
     public isNaN(value: unknown): boolean {
-        return Number.isNaN(value)
+        return Number.isNaN(value);
     }
 
     public isAllNaNs(...values: unknown[]): boolean {
         for (const value of values) {
-            if (!this.isNaN(value)) return false
+            if (!this.isNaN(value)) return false;
         }
-        return true
+        return true;
     }
 
     public hasValue(value: unknown): boolean {
-        return !this.isUndefined(value) && !this.isNull(value) && !this.isNaN(value) && !this.isInfinity(value)
+        return !this.isUndefined(value) && !this.isNull(value) && !this.isNaN(value) && !this.isInfinity(value);
     }
 
     public get methods() {
@@ -244,8 +244,8 @@ class Primitives {
             isNaN: this.isNaN,
             isAllNaNs: this.isAllNaNs,
             hasValue: this.hasValue,
-        }
+        };
     }
 }
 
-export default Primitives
+export default Primitives;

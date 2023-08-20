@@ -6,7 +6,7 @@ import NodeMailer from "../utils/NodeMailer";
 // import TelegramBOTLogger from "../utils/TelegramBOTLogger";
 
 export default class ContactController {
-    static getViewContact (req: Request, res: Response) {
+    static getViewContact(req: Request, res: Response) {
         res.render("pages/contact", {
             flash_success: req.flash("success"),
             flash_warning: req.flash("warning"),
@@ -17,7 +17,7 @@ export default class ContactController {
         });
     }
 
-    static async postContact (req: Request, res: Response, next: NextFunction) {
+    static async postContact(req: Request, res: Response, next: NextFunction) {
         try {
             const errors = validationResult(req);
 

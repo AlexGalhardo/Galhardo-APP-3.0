@@ -2,11 +2,11 @@ import prisma from "../config/prisma";
 import { inputGameObject } from "../utils/InputTypes";
 
 export default class Games {
-    static getAll () {
+    static getAll() {
         return prisma.game.findMany();
     }
 
-    static async getRandom () {
+    static async getRandom() {
         const skip = Math.floor(Math.random() * (await prisma.game.count()));
         const game = await prisma.game.findMany({
             take: 1,
@@ -16,11 +16,11 @@ export default class Games {
         return game[0];
     }
 
-    static getTotal () {
+    static getTotal() {
         return prisma.game.count();
     }
 
-    static getById (game_id: string) {
+    static getById(game_id: string) {
         return prisma.game.findUnique({
             where: {
                 id: game_id,
@@ -28,7 +28,7 @@ export default class Games {
         });
     }
 
-    static searchTitle (gameTitle: string) {
+    static searchTitle(gameTitle: string) {
         return prisma.game.findMany({
             where: {
                 title: {
@@ -39,7 +39,7 @@ export default class Games {
         });
     }
 
-    static create (gameObject: inputGameObject) {
+    static create(gameObject: inputGameObject) {
         return prisma.game.create({
             data: {
                 title: gameObject.title,
@@ -57,7 +57,7 @@ export default class Games {
         });
     }
 
-    static update (gameObject: inputGameObject) {
+    static update(gameObject: inputGameObject) {
         return prisma.game.update({
             where: {
                 id: gameObject.id,
@@ -80,7 +80,7 @@ export default class Games {
         });
     }
 
-    static delete (game_id: string) {
+    static delete(game_id: string) {
         return prisma.game.delete({
             where: {
                 id: game_id,

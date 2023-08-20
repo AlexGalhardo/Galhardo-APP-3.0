@@ -7,7 +7,7 @@ import Movies from "../repositories/Movies";
 import TVShows from "../repositories/TVShows";
 
 export default class MoviesController {
-    static async getViewMovies (req: Request, res: Response) {
+    static async getViewMovies(req: Request, res: Response) {
         const movie = await Movies.getRandom();
         const totalGames = await Games.getTotal();
         const totalBooks = await Books.getTotal();
@@ -28,7 +28,7 @@ export default class MoviesController {
         });
     }
 
-    static async getSearchMovieTitle (req: Request, res: Response) {
+    static async getSearchMovieTitle(req: Request, res: Response) {
         const searchMovieTitle = req.query.title;
 
         if (!searchMovieTitle) {
@@ -45,8 +45,9 @@ export default class MoviesController {
         if (searchedMovies.length > 1) {
             searchedMovies[0].firstMovie = true;
             return res.render("pages/movies", {
-                flash_success: `${searchedMovies.length
-                    } Games Found From Search Title: ${searchMovieTitle.toUpperCase()}`,
+                flash_success: `${
+                    searchedMovies.length
+                } Games Found From Search Title: ${searchMovieTitle.toUpperCase()}`,
                 movies: searchedMovies,
                 user: global.SESSION_USER,
                 header: Header.movies(),

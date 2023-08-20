@@ -52,11 +52,11 @@
 
     npx prisma migrate dev
 
-* Run PrismaORM seeds
+* Open PrismaORM Studio
 
 <!---->
 
-    npx prisma db seed
+    npx prisma studio
 
 * Up local server
 

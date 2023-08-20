@@ -8,7 +8,7 @@ import Movies from "../repositories/Movies";
 import TVShows from "../repositories/TVShows";
 
 export default class BooksController {
-    static async getViewBooks (req: Request, res: Response) {
+    static async getViewBooks(req: Request, res: Response) {
         const book = await Books.getRandom();
         const totalGames = await Games.getTotal();
         const totalBooks = await Books.getTotal();
@@ -30,7 +30,7 @@ export default class BooksController {
         });
     }
 
-    static async getSearchBookTitle (req: Request, res: Response) {
+    static async getSearchBookTitle(req: Request, res: Response) {
         const searchBookTitle = req.query.title;
 
         if (!searchBookTitle) {

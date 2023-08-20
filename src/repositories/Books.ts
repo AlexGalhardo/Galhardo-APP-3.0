@@ -2,11 +2,11 @@ import prisma from "../config/prisma";
 import { inputBookObject } from "../utils/InputTypes";
 
 export default class Books {
-    static getAll () {
+    static getAll() {
         return prisma.book.findMany();
     }
 
-    static async getRandom () {
+    static async getRandom() {
         const skip = Math.floor(Math.random() * (await prisma.book.count()));
         const book = await prisma.book.findMany({
             take: 1,
@@ -16,11 +16,11 @@ export default class Books {
         return book[0];
     }
 
-    static getTotal () {
+    static getTotal() {
         return prisma.book.count();
     }
 
-    static getById (book_id: string) {
+    static getById(book_id: string) {
         return prisma.book.findUnique({
             where: {
                 id: book_id,
@@ -28,7 +28,7 @@ export default class Books {
         });
     }
 
-    static searchTitle (bookTitle: string) {
+    static searchTitle(bookTitle: string) {
         return prisma.book.findMany({
             where: {
                 title: {
@@ -39,7 +39,7 @@ export default class Books {
         });
     }
 
-    static create (bookObject: inputBookObject) {
+    static create(bookObject: inputBookObject) {
         return prisma.book.create({
             data: {
                 title: bookObject.title,
@@ -55,7 +55,7 @@ export default class Books {
         });
     }
 
-    static update (bookObject: inputBookObject) {
+    static update(bookObject: inputBookObject) {
         return prisma.book.update({
             where: {
                 id: bookObject.id,
@@ -76,7 +76,7 @@ export default class Books {
         });
     }
 
-    static delete (book_id: string) {
+    static delete(book_id: string) {
         return prisma.book.delete({
             where: {
                 id: book_id,

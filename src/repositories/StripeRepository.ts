@@ -3,7 +3,7 @@ import prisma from "../config/prisma";
 import { inputShopTransactionObject, inputSubscriptionTransactionObject } from "../utils/InputTypes";
 
 export default class StripeRepository {
-    static async createShopTransaction (shopTransactionObject: inputShopTransactionObject) {
+    static async createShopTransaction(shopTransactionObject: inputShopTransactionObject) {
         await prisma.stripeShopTransaction.create({
             data: {
                 transaction_id: shopTransactionObject.transaction_id,
@@ -35,7 +35,7 @@ export default class StripeRepository {
         });
     }
 
-    static async getShopTransactionsByUserId (user_id: string) {
+    static async getShopTransactionsByUserId(user_id: string) {
         return prisma.stripeShopTransaction.findMany({
             where: {
                 user_id,
@@ -43,7 +43,7 @@ export default class StripeRepository {
         });
     }
 
-    static async getShopTransactionById (orderId: string) {
+    static async getShopTransactionById(orderId: string) {
         return prisma.stripeShopTransaction.findUnique({
             where: {
                 id: orderId,
@@ -51,7 +51,7 @@ export default class StripeRepository {
         });
     }
 
-    static async createSubscriptionTransaction (subscriptionTransactionObject: inputSubscriptionTransactionObject) {
+    static async createSubscriptionTransaction(subscriptionTransactionObject: inputSubscriptionTransactionObject) {
         await prisma.stripeSubscriptionTransaction.create({
             data: {
                 transaction_id: subscriptionTransactionObject.transaction_id,
@@ -75,7 +75,7 @@ export default class StripeRepository {
         });
     }
 
-    static async getSubscriptionsTransactionsByUserId (user_id: string) {
+    static async getSubscriptionsTransactionsByUserId(user_id: string) {
         return prisma.stripeSubscriptionTransaction.findMany({
             where: {
                 user_id,
@@ -83,7 +83,7 @@ export default class StripeRepository {
         });
     }
 
-    static async getSubscriptionTransactionById (orderId: string) {
+    static async getSubscriptionTransactionById(orderId: string) {
         return prisma.stripeSubscriptionTransaction.findUnique({
             where: {
                 id: orderId,

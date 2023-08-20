@@ -6,15 +6,15 @@ import { inputCreateUser, inputSubscriptionTransactionObject, inputUpdateUser } 
 import NumberHelper from "../utils/Numbers";
 
 export default class UsersRepository {
-    static getAll () {
+    static getAll() {
         return prisma.user.findMany();
     }
 
-    static getTotal () {
+    static getTotal() {
         return prisma.user.count();
     }
 
-    static getById (user_id: string) {
+    static getById(user_id: string) {
         return prisma.user.findUnique({
             where: {
                 id: user_id,
@@ -22,7 +22,7 @@ export default class UsersRepository {
         });
     }
 
-    static verifyIfAdminById (user_id: string) {
+    static verifyIfAdminById(user_id: string) {
         return prisma.user.findUnique({
             where: {
                 isAdmin: {
@@ -33,7 +33,7 @@ export default class UsersRepository {
         });
     }
 
-    static getUserByEmail (email: string) {
+    static getUserByEmail(email: string) {
         return prisma.user.findUnique({
             where: {
                 email,
@@ -41,7 +41,7 @@ export default class UsersRepository {
         });
     }
 
-    static emailRegistred (email: string) {
+    static emailRegistred(email: string) {
         const emailExists = prisma.user.findUnique({
             where: {
                 email,
@@ -51,7 +51,7 @@ export default class UsersRepository {
         return !!emailExists;
     }
 
-    static async login (email: string, password: string) {
+    static async login(email: string, password: string) {
         const user = await prisma.user.findUnique({
             where: {
                 email,
@@ -63,7 +63,7 @@ export default class UsersRepository {
         return (await Bcrypt.compare(password, user?.password)) ? user : null;
     }
 
-    static async verifyPassword (user_id: string, password: string) {
+    static async verifyPassword(user_id: string, password: string) {
         const user = await prisma.user.findUnique({
             where: {
                 id: user_id,
@@ -73,7 +73,7 @@ export default class UsersRepository {
         return !!(await Bcrypt.compare(password, user?.password as string));
     }
 
-    static async emailIsConfirmed (email: string) {
+    static async emailIsConfirmed(email: string) {
         const user = await prisma.user.findUnique({
             where: {
                 emailConfirmed: {
@@ -86,7 +86,7 @@ export default class UsersRepository {
         return !!user;
     }
 
-    static async update (userObject: inputUpdateUser) {
+    static async update(userObject: inputUpdateUser) {
         const User = await prisma.user.findUnique({
             where: {
                 id: userObject.id,
@@ -123,7 +123,7 @@ export default class UsersRepository {
         return null;
     }
 
-    static async create (userObject: inputCreateUser, confirmEmailToken: string) {
+    static async create(userObject: inputCreateUser, confirmEmailToken: string) {
         return prisma.user.create({
             data: {
                 name: userObject.username,
@@ -134,7 +134,7 @@ export default class UsersRepository {
         });
     }
 
-    static async createStripeCustomer (user_id: string, stripe_customer_id: string) {
+    static async createStripeCustomer(user_id: string, stripe_customer_id: string) {
         await prisma.user.update({
             where: {
                 id: user_id,
@@ -145,7 +145,7 @@ export default class UsersRepository {
         });
     }
 
-    static async createStripeCard (
+    static async createStripeCard(
         user_id: string,
         customerCard: { card: { id: string; brand: string; exp_month: number; exp_year: number; last4: number } },
         cardNumber: string,
@@ -165,7 +165,7 @@ export default class UsersRepository {
         });
     }
 
-    static async createStripeSubscription (
+    static async createStripeSubscription(
         user_id: string,
         subscriptionTransactionObject: inputSubscriptionTransactionObject,
     ) {
@@ -183,7 +183,7 @@ export default class UsersRepository {
         });
     }
 
-    static async emailExists (email: string) {
+    static async emailExists(email: string) {
         return prisma.user.findUnique({
             where: {
                 email,
@@ -191,7 +191,7 @@ export default class UsersRepository {
         });
     }
 
-    static async createResetPasswordToken (email: string, resetPasswordToken: string) {
+    static async createResetPasswordToken(email: string, resetPasswordToken: string) {
         await prisma.user.update({
             where: {
                 email,
@@ -202,7 +202,7 @@ export default class UsersRepository {
         });
     }
 
-    static resetPasswordTokenIsValid (email: string, resetPasswordToken: string) {
+    static resetPasswordTokenIsValid(email: string, resetPasswordToken: string) {
         return prisma.user.findUnique({
             where: {
                 resetPasswordTokenIsValid: {
@@ -213,7 +213,7 @@ export default class UsersRepository {
         });
     }
 
-    static async resetPassword (email: string, newPassword: string) {
+    static async resetPassword(email: string, newPassword: string) {
         return prisma.user.update({
             where: {
                 email,
@@ -225,7 +225,7 @@ export default class UsersRepository {
         });
     }
 
-    static verifyIfEmailIsConfirmed (email: string) {
+    static verifyIfEmailIsConfirmed(email: string) {
         return prisma.user.findUnique({
             where: {
                 emailConfirmed: {
@@ -236,7 +236,7 @@ export default class UsersRepository {
         });
     }
 
-    static async createConfirmEmailToken (email: string, confirmEmailToken: string) {
+    static async createConfirmEmailToken(email: string, confirmEmailToken: string) {
         await prisma.user.update({
             where: {
                 email,
@@ -247,7 +247,7 @@ export default class UsersRepository {
         });
     }
 
-    static async verifyConfirmEmailToken (email: string, confirmEmailToken: string) {
+    static async verifyConfirmEmailToken(email: string, confirmEmailToken: string) {
         if (await this.emailExists(email)) {
             if (
                 await prisma.user.findUnique({
@@ -273,7 +273,7 @@ export default class UsersRepository {
         return false;
     }
 
-    static async addGameToShopCart (game_id: string): Promise<boolean> {
+    static async addGameToShopCart(game_id: string): Promise<boolean> {
         let { shop_cart_itens } = await prisma.user.findUnique({
             where: {
                 id: global.SESSION_USER.id,
@@ -346,7 +346,7 @@ export default class UsersRepository {
         return true;
     }
 
-    static async addBookToShopCart (book_id: string): Promise<boolean> {
+    static async addBookToShopCart(book_id: string): Promise<boolean> {
         let { shop_cart_itens } = await prisma.user.findUnique({
             where: {
                 id: global.SESSION_USER.id,
@@ -419,7 +419,7 @@ export default class UsersRepository {
         return true;
     }
 
-    static async removeShopCartItem (item_id: string): Promise<boolean> {
+    static async removeShopCartItem(item_id: string): Promise<boolean> {
         let { shop_cart_itens } = await prisma.user.findUnique({
             where: {
                 id: global.SESSION_USER.id,
@@ -453,7 +453,7 @@ export default class UsersRepository {
         return false;
     }
 
-    static async getTotalItensShopCart (): Promise<number> {
+    static async getTotalItensShopCart(): Promise<number> {
         if (global.SESSION_USER) {
             let { shop_cart_itens } = await prisma.user.findUnique({
                 where: {
@@ -471,7 +471,7 @@ export default class UsersRepository {
         return 0;
     }
 
-    static async getShopCartItens () {
+    static async getShopCartItens() {
         if (global.SESSION_USER) {
             let { shop_cart_itens } = await prisma.user.findUnique({
                 where: {
@@ -494,7 +494,7 @@ export default class UsersRepository {
         return null;
     }
 
-    static async getShopCartTotalAmount (): Promise<number> {
+    static async getShopCartTotalAmount(): Promise<number> {
         if (global.SESSION_USER) {
             let { shop_cart_itens } = await prisma.user.findUnique({
                 where: {
@@ -518,7 +518,7 @@ export default class UsersRepository {
         return 0;
     }
 
-    static async removeAllShopCartItens (): Promise<void> {
+    static async removeAllShopCartItens(): Promise<void> {
         await prisma.user.update({
             where: {
                 id: global.SESSION_USER.id,

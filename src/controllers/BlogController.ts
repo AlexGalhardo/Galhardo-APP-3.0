@@ -5,7 +5,7 @@ import Header from "../utils/Header";
 import Blog from "../repositories/Blog";
 
 export default class BlogController {
-    static async getViewBlog (req: Request, res: Response) {
+    static async getViewBlog(req: Request, res: Response) {
         const totalBlogPosts = await Blog.getTotal();
         const blogPostsPerPage = 4;
 
@@ -26,7 +26,7 @@ export default class BlogController {
         });
     }
 
-    static async getSearchBlogTitle (req: Request, res: Response) {
+    static async getSearchBlogTitle(req: Request, res: Response) {
         const blogPosts = await Blog.getAll();
         const searchBlogTitle = req.query.blogTitle;
 
@@ -48,7 +48,7 @@ export default class BlogController {
         });
     }
 
-    static async getViewBlogPost (req: Request, res: Response) {
+    static async getViewBlogPost(req: Request, res: Response) {
         const { slug } = req.params;
 
         const blogPost = await Blog.getBySlug(slug);
@@ -60,14 +60,14 @@ export default class BlogController {
         });
     }
 
-    static getRenderBootstrapPaginator (current, blogPostsPerPage, totalBlogPosts) {
+    static getRenderBootstrapPaginator(current, blogPostsPerPage, totalBlogPosts) {
         return new pagination.TemplatePaginator({
             prelink: "/blog/",
             current,
             rowsPerPage: blogPostsPerPage,
             totalResult: totalBlogPosts,
             slashSeparator: true,
-            template (result) {
+            template(result) {
                 let i;
                 let len;
                 let html = '<div><ul class="pagination">';
@@ -77,8 +77,9 @@ export default class BlogController {
                 }
                 const prelink = this.preparePreLink(result.prelink);
                 if (result.previous) {
-                    html += `<li class="page-item"><a class="page-link" href="${prelink}${result.previous
-                        }">${this.options.translator("PREVIOUS")}</a></li>`;
+                    html += `<li class="page-item"><a class="page-link" href="${prelink}${
+                        result.previous
+                    }">${this.options.translator("PREVIOUS")}</a></li>`;
                 }
                 if (result.range.length) {
                     for (i = 0, len = result.range.length; i < len; i++) {
@@ -90,8 +91,9 @@ export default class BlogController {
                     }
                 }
                 if (result.next) {
-                    html += `<li class="page-item"><a class="page-link" href="${prelink}${result.next
-                        }" class="paginator-next">${this.options.translator("NEXT")}</a></li>`;
+                    html += `<li class="page-item"><a class="page-link" href="${prelink}${
+                        result.next
+                    }" class="paginator-next">${this.options.translator("NEXT")}</a></li>`;
                 }
                 html += "</ul></div>";
                 return html;

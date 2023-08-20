@@ -6,7 +6,7 @@ import Header from "../utils/Header";
 import Users from "../repositories/UsersRepository";
 
 export default class ShopController {
-    static async getViewShop (req: Request, res: Response) {
+    static async getViewShop(req: Request, res: Response) {
         const shopCartItens = await Users.getShopCartItens();
         const shopCartTotalAmount = await Users.getShopCartTotalAmount();
         const totalItensShopCart = await Users.getTotalItensShopCart();
@@ -27,7 +27,7 @@ export default class ShopController {
         });
     }
 
-    static async removeCartItem (req: Request, res: Response) {
+    static async removeCartItem(req: Request, res: Response) {
         const { item_id } = req.params;
 
         if (await Users.removeShopCartItem(item_id)) {
@@ -39,7 +39,7 @@ export default class ShopController {
         return res.redirect("/shop");
     }
 
-    static async verifyIfUserIsAlreadyAStripeCustomer () {
+    static async verifyIfUserIsAlreadyAStripeCustomer() {
         if (!global.SESSION_USER.stripe_customer_id) {
             const customer = await stripe.customers.create({
                 description: "Customer created in Subscription checkout!",
@@ -51,7 +51,7 @@ export default class ShopController {
         return global.SESSION_USER.stripe_customer_id;
     }
 
-    static async verifyIfUserAlreadyHasAStripeCardRegistred (req: Request) {
+    static async verifyIfUserAlreadyHasAStripeCardRegistred(req: Request) {
         const { card_number, card_exp_year, card_exp_month, card_cvc } = req.body;
 
         const customerCard = {
@@ -78,7 +78,7 @@ export default class ShopController {
         return cardToken.id;
     }
 
-    static async postShop (req: Request, res: Response, next: NextFunction) {
+    static async postShop(req: Request, res: Response, next: NextFunction) {
         try {
             const {
                 total_shop_amount,

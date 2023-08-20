@@ -2,11 +2,11 @@ import prisma from "../config/prisma";
 import { inputTvShowObject } from "../utils/InputTypes";
 
 export default class TVShows {
-    static getAll () {
+    static getAll() {
         return prisma.tvshow.findMany();
     }
 
-    static async getRandom () {
+    static async getRandom() {
         const skip = Math.floor(Math.random() * (await prisma.tvshow.count()));
         return prisma.tvshow.findMany({
             take: 1,
@@ -14,11 +14,11 @@ export default class TVShows {
         });
     }
 
-    static getTotal () {
+    static getTotal() {
         return prisma.tvshow.count();
     }
 
-    static getById (tvshow_id: string) {
+    static getById(tvshow_id: string) {
         return prisma.tvshow.findUnique({
             where: {
                 id: tvshow_id,
@@ -26,7 +26,7 @@ export default class TVShows {
         });
     }
 
-    static searchTitle (tvShowTitle: string) {
+    static searchTitle(tvShowTitle: string) {
         return prisma.tvshow.findMany({
             where: {
                 title: {
@@ -37,7 +37,7 @@ export default class TVShows {
         });
     }
 
-    static create (tvShowObject: inputTvShowObject) {
+    static create(tvShowObject: inputTvShowObject) {
         return prisma.tvshow.create({
             data: {
                 title: tvShowObject.title,
@@ -53,7 +53,7 @@ export default class TVShows {
         });
     }
 
-    static update (tvShowObject: inputTvShowObject) {
+    static update(tvShowObject: inputTvShowObject) {
         return prisma.tvshow.update({
             where: {
                 id: tvShowObject.id,
@@ -74,7 +74,7 @@ export default class TVShows {
         });
     }
 
-    static delete (movie_id: string) {
+    static delete(movie_id: string) {
         return prisma.tvshow.delete({
             where: {
                 id: movie_id,
