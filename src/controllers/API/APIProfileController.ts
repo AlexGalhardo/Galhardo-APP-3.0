@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 
-import Users from "../../repositories/UsersRepository";
+import Users from "../../repositories/Users.repository";
 
 export default class APIProfileController {
-    static async postLogin(req: Request, res: Response, next: NextFunction) {
+    static async postLogin (req: Request, res: Response, next: NextFunction) {
         try {
             const { email, password } = req.body;
             return res.json(await Users.login(email, password));
@@ -12,7 +12,7 @@ export default class APIProfileController {
         }
     }
 
-    static async patchProfile(req: Request, res: Response, next: NextFunction) {
+    static async patchProfile (req: Request, res: Response, next: NextFunction) {
         try {
             const {
                 name,
@@ -55,14 +55,14 @@ export default class APIProfileController {
             return user
                 ? res.json({ user })
                 : res.json({
-                      error: "Something went wrong",
-                  });
+                    error: "Something went wrong",
+                });
         } catch (err) {
             next(err);
         }
     }
 
-    static async deleteProfile(req: Request, res: Response, next: NextFunction) {
+    static async deleteProfile (req: Request, res: Response, next: NextFunction) {
         try {
             const { email, password } = req.body;
 

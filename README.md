@@ -91,10 +91,10 @@
 | .repository |  PascalCase |
 | .useCase         | PascalCase       |
 | .port         | PascalCase       |
-| .test (remember to leave it with the same name as the useCase and inside the same folder)        | PascalCase       |
+| .test        | PascalCase       |
 | SQL tables and columns |  snake\_case |
 | acronyms (example: CRM )         | UPPERCASE       |
-| CONSTANTES names |  UPPER\_CASE separated by \_ |
+| CONSTANTS names |  UPPER\_CASE separated by \_ |
 | names of folders, files, variables, functions etc native to libs and frameworks |  KEEP STANDARD |
 
 ## Before submit Commits & PR

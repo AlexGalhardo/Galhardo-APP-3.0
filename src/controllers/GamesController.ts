@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 
 import Header from "../utils/Header";
 import NumberHelper from "../utils/Numbers";
-import Books from "../repositories/Books";
-import Games from "../repositories/Games";
-import Movies from "../repositories/Movies";
-import TVShows from "../repositories/TVShows";
-import Users from "../repositories/UsersRepository";
+import Books from "../repositories/Books.repository";
+import Games from "../repositories/Games.repository.ts";
+import Movies from "../repositories/Movies.repository";
+import TVShows from "../repositories/TVShows.repository";
+import Users from "../repositories/Users.repository";
 
 export default class GamesController {
-    static async getViewGames(req: Request, res: Response) {
+    static async getViewGames (req: Request, res: Response) {
         const game = await Games.getRandom();
         const totalGames = await Games.getTotal();
         const totalBooks = await Books.getTotal();
@@ -33,7 +33,7 @@ export default class GamesController {
         });
     }
 
-    static async getSearchGameTitle(req: Request, res: Response) {
+    static async getSearchGameTitle (req: Request, res: Response) {
         const searchGameTitle = req.query.title;
 
         if (!searchGameTitle) {
@@ -50,9 +50,8 @@ export default class GamesController {
         if (searchedGames.length > 1) {
             searchedGames[0].firstGame = true;
             return res.render("pages/games", {
-                flash_success: `${
-                    searchedGames.length
-                } Games Found From Search Title: ${searchGameTitle.toUpperCase()}`,
+                flash_success: `${searchedGames.length
+                    } Games Found From Search Title: ${searchGameTitle.toUpperCase()}`,
                 games: searchedGames,
                 user: global.SESSION_USER,
                 header: Header.games(),

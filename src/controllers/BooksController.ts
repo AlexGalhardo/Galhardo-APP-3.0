@@ -2,13 +2,13 @@ import { Request, Response } from "express";
 
 import Header from "../utils/Header";
 import Number from "../utils/Numbers";
-import Books from "../repositories/Books";
-import Games from "../repositories/Games";
-import Movies from "../repositories/Movies";
-import TVShows from "../repositories/TVShows";
+import Books from "../repositories/Books.repository";
+import Games from "../repositories/Games.repository.ts";
+import Movies from "../repositories/Movies.repository";
+import TVShows from "../repositories/TVShows.repository";
 
 export default class BooksController {
-    static async getViewBooks(req: Request, res: Response) {
+    static async getViewBooks (req: Request, res: Response) {
         const book = await Books.getRandom();
         const totalGames = await Games.getTotal();
         const totalBooks = await Books.getTotal();
@@ -30,7 +30,7 @@ export default class BooksController {
         });
     }
 
-    static async getSearchBookTitle(req: Request, res: Response) {
+    static async getSearchBookTitle (req: Request, res: Response) {
         const searchBookTitle = req.query.title;
 
         if (!searchBookTitle) {

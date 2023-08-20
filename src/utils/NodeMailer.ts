@@ -3,11 +3,11 @@ import handlebars from "handlebars";
 import path from "path";
 
 import MailTrap from "../config/smtp";
-import Users from "../repositories/UsersRepository";
+import Users from "../repositories/Users.repository";
 import { inputShopTransactionObject, inputSubscriptionTransactionObject, inputContactObject } from "./InputTypes";
 
 export default class NodeMailer {
-    static async sendContact(contactObject: inputContactObject) {
+    static async sendContact (contactObject: inputContactObject) {
         const filePath = path.join(__dirname, "../views/emails/contact.html");
 
         const source = fs.readFileSync(filePath, "utf-8").toString();
@@ -34,7 +34,7 @@ export default class NodeMailer {
         MailTrap.close();
     }
 
-    static async sendShopTransaction(shopTransactionObject: inputShopTransactionObject) {
+    static async sendShopTransaction (shopTransactionObject: inputShopTransactionObject) {
         const filePath = path.join(__dirname, "../views/emails/shop_transaction.html");
 
         const source = fs.readFileSync(filePath, "utf-8").toString();
@@ -69,7 +69,7 @@ export default class NodeMailer {
         MailTrap.close();
     }
 
-    static async sendSubscriptionTransaction(subsTransactionObject: inputSubscriptionTransactionObject) {
+    static async sendSubscriptionTransaction (subsTransactionObject: inputSubscriptionTransactionObject) {
         const filePath = path.join(__dirname, "../views/emails/subscription_transaction.html");
 
         const source = fs.readFileSync(filePath, "utf-8").toString();
@@ -103,7 +103,7 @@ export default class NodeMailer {
         MailTrap.close();
     }
 
-    static async sendConfirmEmailLink(email: string, confirmEmailToken: string) {
+    static async sendConfirmEmailLink (email: string, confirmEmailToken: string) {
         const confirmEmailLinkURL = `${process.env.APP_URL}/confirmEmail/${email}/${confirmEmailToken}`;
 
         const filePath = path.join(__dirname, "../views/emails/confirm_email.html");
@@ -130,7 +130,7 @@ export default class NodeMailer {
         MailTrap.close();
     }
 
-    static async sendForgetPasswordLink(email: string, resetPasswordToken: string) {
+    static async sendForgetPasswordLink (email: string, resetPasswordToken: string) {
         const resetPasswordLinkURL = `${process.env.APP_URL}/resetPassword/${email}/${resetPasswordToken}`;
 
         const filePath = path.join(__dirname, "../views/emails/forget_password.html");

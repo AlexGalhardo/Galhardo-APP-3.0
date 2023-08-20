@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 
 import Header from "../utils/Header";
-import Books from "../repositories/Books";
-import Games from "../repositories/Games";
-import Movies from "../repositories/Movies";
-import TVShows from "../repositories/TVShows";
+import Books from "../repositories/Books.repository";
+import Games from "../repositories/Games.repository.ts";
+import Movies from "../repositories/Movies.repository";
+import TVShows from "../repositories/TVShows.repository";
 
 export default class MoviesController {
-    static async getViewMovies(req: Request, res: Response) {
+    static async getViewMovies (req: Request, res: Response) {
         const movie = await Movies.getRandom();
         const totalGames = await Games.getTotal();
         const totalBooks = await Books.getTotal();
@@ -28,7 +28,7 @@ export default class MoviesController {
         });
     }
 
-    static async getSearchMovieTitle(req: Request, res: Response) {
+    static async getSearchMovieTitle (req: Request, res: Response) {
         const searchMovieTitle = req.query.title;
 
         if (!searchMovieTitle) {
@@ -45,9 +45,8 @@ export default class MoviesController {
         if (searchedMovies.length > 1) {
             searchedMovies[0].firstMovie = true;
             return res.render("pages/movies", {
-                flash_success: `${
-                    searchedMovies.length
-                } Games Found From Search Title: ${searchMovieTitle.toUpperCase()}`,
+                flash_success: `${searchedMovies.length
+                    } Games Found From Search Title: ${searchMovieTitle.toUpperCase()}`,
                 movies: searchedMovies,
                 user: global.SESSION_USER,
                 header: Header.movies(),
