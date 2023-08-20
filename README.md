@@ -77,6 +77,36 @@
 * Stripe: <http://dashboard.stripe.com/>
 * Recaptcha: <https://www.google.com/recaptcha/admin/>
 
+## Name Patterns
+
+| Context | Pattern to be followed |
+|-----------------|----------------------|
+| folders name           | camelCase    |
+| functions names |  camelCase |
+| common variables names |  camelCase |
+| interface and types names |  PascalCase |
+| class names |  PascalCase |
+| .controller           | PascalCase    |
+| .service           | PascalCase    |
+| .repository |  PascalCase |
+| .useCase         | PascalCase       |
+| .port         | PascalCase       |
+| .test (remember to leave it with the same name as the useCase and inside the same folder)        | PascalCase       |
+| SQL tables and columns |  snake\_case |
+| acronyms (example: CRM )         | UPPERCASE       |
+| CONSTANTES names |  UPPER\_CASE separated by \_ |
+| names of folders, files, variables, functions etc native to libs and frameworks |  KEEP STANDARD |
+
+## Before submit Commits & PR
+
+* Run command:
+
+<!---->
+
+    npm run format
+
+<!---->
+
 ## LICENSE
 
 [MIT](http://opensource.org/licenses/MIT)
