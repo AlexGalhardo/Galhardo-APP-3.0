@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Request, Response, NextFunction } from "express";
 import session from "express-session";
-import mustache from "mustache-express";
 import path from "path";
 import adminRoutes from "./routes/adminRoutes";
 import profileRoutes from "./routes/profileRoutes";
@@ -25,7 +24,6 @@ app.use(engine)
 	.set("view engine", "mustache")
 	.set("views", path.join(__dirname, "views"))
 	.disable('view cache')
-	// .engine("mustache", mustache())
 	.use(cookieParser())
 	.use(cors())
 	.use(flash())

@@ -12,29 +12,29 @@
 			        <button class="btn btn-outline-dark" type="submit">Search</button>
 			    </form>
 
-			    {{#totalBlogPostsFoundFromSearch}}
+			    @if(totalBlogPostsFoundFromSearch)
  					<h6 class="alert alert-success fw-bold text-success">Total Blog Posts Search Found:  {{totalBlogPostsFoundFromSearch}}</h6>
- 				{{/totalBlogPostsFoundFromSearch}}
+ 				@end
         	</div>
 
-			{{#blog}}
+			@if(blog)
 			    <div class="container col-md-10">
-			      	<a class="text-dark text-decoration-none" href="/blog/{{slug}}">
+			      	<a class="text-dark text-decoration-none" href="/blog/{{blog.slug}}">
 			      		<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 			      		<div class="col-auto d-none d-lg-block">
-			          		<img src="{{image}}">
+			          		<img src="{{blog.image}}">
 			        	</div>
 			        	<div class="col p-4 d-flex flex-column position-static">
-			          		<h3 class="fw-bold text-primary">{{title}}</h3>
-			          		<div class="mb-1 text-muted"><small>{{created_at}}</small></div>
+			          		<h3 class="fw-bold text-primary">{{blog.title}}</h3>
+			          		<div class="mb-1 text-muted"><small>{{blog.created_at}}</small></div>
 			          		<br>
-			          		<p class="card-text mb-auto">{{resume}}</p>
+			          		<p class="card-text mb-auto">{{blog.resume}}</p>
 			        	</div>
 
 			      		</div>
 			      	</a>
 			    </div>
-			{{/blog}}
+			@end
 
 			<div class="container col-md-10">{{{boostrapPaginator}}}</div>
 

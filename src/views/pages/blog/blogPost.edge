@@ -4,13 +4,13 @@
 
         <div class="row mb-3 mt-3">
 
-        	{{#blogPost}}
+        	@if(blogPost)
 
                 <div class="text-center mb-3">
-            		<h3 class="fw-bold text-dark">{{title}}</h3>
-            		<small class="mb-5">{{updated_at}}</small>
+            		<h3 class="fw-bold text-dark">{{blogPost.title}}</h3>
+            		<small class="mb-5">{{blogPost.updated_at}}</small>
                     <br><br>
-                    @if(user.admin)
+                    @if(user?.admin)
                         <a href="/admin/update/blogPost/{{id}}" class="w-50 shadow mb-2 btn btn-warning shadow-sm">
                         <i class="bi bi-unlock-fill"></i>
                         Edit This Blog Post</a>
@@ -41,13 +41,13 @@
                 @end
 
 
-                {{#header.use_disqus}}
+               @if(header.use_disqus)
                     {{{header.disqus_comments}}}
-                {{/header.use_disqus}}
+                @end
 
 
 
-                {{^header.use_disqus}}
+                @unless(header.use_disqus)
 
                 <h5 class="text-muted">Comments</h5>
                 @unless(flash_success)
@@ -64,7 +64,7 @@
 
                 <hr>
 
-                {{#blogPost.comments}}
+                @if(blogPost.comments)
                     <div class="card mb-3 p-1">
                         <div class="row g-0">
                             <div class="col-md-2 text-center">
@@ -75,30 +75,30 @@
                                     <div class="d-flex justify-content-between">
                                         <h5 class="card-title">{{user_name}}</h5>
                                         @if(user)
-                                            {{#user_logged_can_delete}}
-                                                <a href="/blog/{{slug}}/deleteComment/{{comment_id}}" class="w-25 btn btn-sm btn-outline-danger">Delete Comment</a>
-                                            {{/user_logged_can_delete}}
+                                            @if(user_logged_can_delete)
+                                                <a href="/blog/{{slug}}/deleteComment/{{blog.comment_id}}" class="w-25 btn btn-sm btn-outline-danger">Delete Comment</a>
+                                            @end
                                         @end
                                     </div>
-                                    <p class="card-text"><small class="text-muted">{{created_at}}</small></p>
-                                    <p class="card-text">{{comment}}</p>
+                                    <p class="card-text"><small class="text-muted">{{blogPost.created_at}}</small></p>
+                                    <p class="card-text">{{blogPost.comment}}</p>
                                 </div>
                             </div>
 
                         </div>
                     </div>
 
-                {{/blogPost.comments}}
+                @end
 
-                {{/header.use_disqus}}
+                @end
 
-        	{{/blogPost}}
+        	@end
 
         </div>
 
     </main>
 
-    {{^header.use_disqus}}
+    @unless(header.use_disqus)
         <script>
             var comment = document.getElementById('blog_comment');
             var length = comment.getAttribute("maxlength");
@@ -108,7 +108,7 @@
               document.getElementById('count').innerHTML = (length - this.value.length) + ' words left';
             };
         </script>
-    {{/header.use_disqus}}
+    @end
 
     {{{header.share_buttons_script}}}
     {{{header.disqus_script}}}
