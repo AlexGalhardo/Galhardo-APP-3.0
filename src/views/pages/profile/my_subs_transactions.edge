@@ -1,0 +1,38 @@
+@include('partials/header')
+
+    <div class="container col-lg-12 text-center mt-3">
+
+        <div class="row">
+
+            <h3 class="fw-bold text-warning mb-5 mt-5">
+                <i class="bi bi-award"></i> My Subscriptions Transactions
+            </h3>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">VIEW</th>
+                        <th scope="col">STATUS</th>
+                        <th scope="col">PLAN_NAME</th>
+                        <th scope="col">AMOUNT</th>
+                        <th scope="col">TRANSACTION_ID</th>
+                        <th scope="col">CREATED AT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#subsTransactions}}
+                        <tr>
+                            <th><a href="/profile/subscription/transaction/{{id}}" class="btn btn-outline-success">VIEW</a></th>
+                            <td class="fw-bold">{{status}}</td>
+                            <td>{{plan_name}}</td>
+                            <td>$ {{plan_amount}}</td>
+                            <td>{{transaction_id}}</td>
+                            <td>{{created_at}}</td>
+                        </tr>
+                    {{/subsTransactions}}
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>

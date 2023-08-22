@@ -7,7 +7,6 @@ import Games from "../repositories/Games.repository";
 import Movies from "../repositories/Movies.repository";
 import TVShows from "../repositories/TVShows.repository";
 import UsersRepository, { UsersRepositoryPort } from "../repositories/Users.repository";
-
 export default class GamesController {
 	constructor(
 		private readonly usersRepository: UsersRepositoryPort = new UsersRepository()
@@ -23,7 +22,7 @@ export default class GamesController {
 		// const totalItensShopCart = await this.usersRepository.getTotalItensShopCart()
 		game.price = Numbers.toFloat(game.price as unknown as string);
 
-		return res.render("pages/games", {
+		return res.render("pages.games", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			game,
@@ -54,7 +53,7 @@ export default class GamesController {
 
 		if (searchedGames.length > 1) {
 			searchedGames[0].firstGame = true;
-			return res.render("pages/games", {
+			return res.render("pages.games", {
 				flash_success: `${searchedGames.length
 					} Games Found From Search Title: ${searchGameTitle.toUpperCase()}`,
 				games: searchedGames,
@@ -63,7 +62,7 @@ export default class GamesController {
 			});
 		}
 
-		return res.render("pages/games", {
+		return res.render("pages.games", {
 			flash_success: `1 Game Found From Search Title: ${searchGameTitle.toUpperCase()}`,
 			game: searchedGames[0],
 			user: global.SESSION_USER,

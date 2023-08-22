@@ -9,23 +9,23 @@ import StripeModel from "../repositories/Stripe.repository";
 import Users from "../repositories/Users.repository";
 
 export default class PlansController {
-	static getViewPricing (req: Request, res: Response) {
-		return res.render("pages/plans/plans", {
+	static getViewPricing(req: Request, res: Response) {
+		return res.render("pages.plans/plans", {
 			flash_warning: req.flash("warning"),
 			user: global.SESSION_USER,
 			header: Header.plans("Plans - Galhardo APP"),
 		});
 	}
 
-	static getViewPlanPremiumCheckout (req: Request, res: Response) {
-		return res.render("pages/plans/premium_checkout", {
+	static getViewPlanPremiumCheckout(req: Request, res: Response) {
+		return res.render("pages.plans/premium_checkout", {
 			flash_warning: req.flash("warning"),
 			user: global.SESSION_USER,
 			header: Header.plans("Plan PREMIUM - Galhardo APP"),
 		});
 	}
 
-	static async verifyIfUserIsAlreadyAStripeCustomer () {
+	static async verifyIfUserIsAlreadyAStripeCustomer() {
 		if (!global.SESSION_USER.stripe_customer_id) {
 			const customer = await stripe.customers.create({
 				description: "Customer created in Subscription checkout!",
@@ -37,7 +37,7 @@ export default class PlansController {
 		return global.SESSION_USER.stripe_customer_id;
 	}
 
-	static async verifyIfUserAlreadyHasAStripeCardRegistred (req: Request, stripeCustomerId: string) {
+	static async verifyIfUserAlreadyHasAStripeCardRegistred(req: Request, stripeCustomerId: string) {
 		const { card_number, card_exp_year, card_exp_month, card_cvc } = req.body;
 
 		const customerCard = {
@@ -82,7 +82,7 @@ export default class PlansController {
 		return cardToken;
 	}
 
-	static getStripePlan () {
+	static getStripePlan() {
 		return {
 			name: "PREMIUM",
 			id: process.env.STRIPE_PLAN_PREMIUM_PRICE_ID,
@@ -90,7 +90,7 @@ export default class PlansController {
 		};
 	}
 
-	static async createStripeSubscription (stripeCustomerId: string, planId: string) {
+	static async createStripeSubscription(stripeCustomerId: string, planId: string) {
 		const subscription = await stripe.subscriptions.create({
 			customer: stripeCustomerId,
 			items: [{ price: planId }],
@@ -99,7 +99,7 @@ export default class PlansController {
 		return subscription;
 	}
 
-	static async postSubscription (req: Request, res: Response, next: NextFunction) {
+	static async postSubscription(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { confirm_password } = req.body;
 
@@ -147,7 +147,7 @@ export default class PlansController {
 
 			// TelegramBOTLogger.logSubscriptionTransaction(subscriptionTransactionObject);
 
-			return res.render("pages/plans/premium_checkout_status", {
+			return res.render("pages.plans/premium_checkout_status", {
 				flash_success: "Subscription Created with Success!",
 				subscriptionTransactionObject,
 				user: global.SESSION_USER,

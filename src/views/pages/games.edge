@@ -1,0 +1,230 @@
+@include('partials/header')
+
+	<div class="container col-lg-12 mt-3">
+
+      	<div class="row">
+
+            @unless(games)
+                @unless(game)
+                    <div class="text-center alert alert-warning" role="alert" class="mb-3">
+                        <b class="fw-bold">No games found!</b>
+                    </div>
+                @end
+            @end
+
+
+            @unless(flash_success)
+                <div class="text-center alert alert-success" role="alert">
+                    <b>{{flash_success}}</b>
+                </div>
+            @end
+
+            @unless(flash_warning)
+                <div class="text-center alert alert-warning" role="alert">
+                    <b>{{flash_warning}}</b>
+                </div>
+            @end
+
+            @if(game)
+                <input id="game_id" name="game_id" type="hidden" value="{{game.id}}">
+                <input id="game_price_value" name="game_price_value" type="hidden" value="{{game.price}}">
+
+                <input type="text" id="app_url" hidden value="{{app_url}}" readonly>
+
+                <div class="col-lg-3 text-center">
+                    <img id="game_image" src="{{game.image}}" class="shadow mx-auto d-block w-75 image-fluid mb-3" alt="game_image">
+
+					<button onclick="addGameToCart()" class="btn btn-outline-success @unless(user)@end fw-bold w-75 mb-3 shadow" id="button_add_game_to_cart"><i class="bi bi-cart-plus"></i> Add To Cart [$ <span id="game_price">{{game.price}}</span>]</button>
+
+                    @if(user?.admin)
+                        <a id="game_admin_update_link" href="/admin/update/game/{{id}}" class="w-75 shadow btn btn-warning shadow-sm">
+                        <i class="bi bi-unlock-fill"></i>
+                        Edit This Game</a>
+                    @end
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between mb-3">
+
+                            <a target="_blank" id="game_igdb_link" href="{{igdb_link}}" class="fs-3 card-link text-decoration-none">
+                                <span id="game_title" class="fw-bold">{{title}}</span>
+                                (<span id="game_year_release" class="text-muted">{{game.year_release}}</span>)
+                            </a>
+
+
+                            <h3 class="fw-bold text-warning">⭐
+                                <span id="game_igdb_rating">
+                                    {{game.igdb_rating}}
+                                </span>
+                            </h3>
+                        </div>
+
+                        <p class="card-text" id="game_resume">{{game.resume}}</p>
+
+                        <ul class="mt-3 bg-light">
+
+                            <li class=""><b>Genres:</b> <span id="game_genres">{{game.genres}}</span></li>
+
+                            <li class=""><b>Platforms:</b> <span id="game_platforms">{{game.platforms}}</span></li>
+
+                            <li class=""><b>Developer:</b> <span id="game_developer">{{game.developer}}</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- END GAME POST -->
+
+
+
+                <div class="col-lg-3 mb-3">
+
+                    <form class="mb-3" action="/searchGame" method="GET">
+                        <input class="form-control" type="search" placeholder="Search Game Title..." aria-label="Search" name="title">
+                    </form>
+
+                    <div class="list-group">
+                        <a href="/" class="d-flex justify-content-between list-group-item list-group-item-action text-white bg-dark">
+                            <i class="bi bi-controller"></i>
+                            <span>Games</span>
+                            <span>{{totalGames}}</span>
+                        </a>
+
+                        <a href="/books" class="d-flex justify-content-between list-group-item list-group-item-action">
+                            <i class="bi bi-book"></i>
+                            <span>Books</span>
+                            <span>{{totalBooks}}</span>
+                        </a>
+
+                        <a href="/movies" class="d-flex justify-content-between list-group-item list-group-item-action">
+                            <i class="bi bi-camera-video"></i>
+                            <span>Movies</span>
+                            <span>{{totalMovies}}</span>
+                        </a>
+
+                        <a href="/tvshows" class="d-flex justify-content-between list-group-item list-group-item-action">
+                            <i class="bi bi-tv"></i>
+                            <span>TV Shows</span>
+                            <span>{{totalTVShows}}</span>
+                        </a>
+                    </div>
+
+                    <button class="mt-3 w-100 btn btn-outline-primary shadow mb-3" onclick="recommendOtherGame()">
+                            <i class="bi bi-play-fill"></i>
+                            Recommend Other Game
+                    </button>
+
+                    @unless(user)
+                        <div id="newsletter_card">
+
+                        </div>
+                    @end
+
+                </div>
+            @end
+
+
+
+            @if(games)
+
+                <div class="mt-2"></div>
+
+                <div class="col-lg-3 text-center">
+
+                    <img id="game_image" src="{{image}}" crossorigin="anonymous" class="shadow mx-auto d-block w-75 image-fluid mb-3" alt="game_image">
+
+                </div>
+
+
+                <div class="col-lg-6">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <h4 class="card-title">
+                                <a target="_blank" id="game_igdb_link" style="text-decoration:none;" href="{{igdb_link}}" class="card-link">
+                                    <span id="game_title" class="fw-bold text-primary">{{title}}</span>
+                                    (<span id="game_year_release" class="text-muted">{{year_release}}</span>)
+                                </a>
+                            </h4>
+
+                            <h4 class="fw-bold text-warning">⭐
+                                <span id="game_igdb_rating">
+                                    {{igdb_rating}}
+                                </span>
+                            </h4>
+                        </div>
+
+                        <small class="card-text" id="game_resume">{{resume}}</small>
+
+                        <ul class="mt-3">
+
+                            <li class=""><b>Genres:</b> <span id="game_genres">{{genres}}</span></li>
+
+                            <li class=""><b>Platforms:</b> <span id="game_platforms">{{platforms}}</span></li>
+
+                            <li class=""><b>Developer:</b> <span id="game_developer">{{developer}}</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- END GAME POST -->
+
+                @if(firstGame)
+                    <div class="col-lg-3 mb-3">
+
+                        <form class="mb-3" action="/searchGame" method="GET">
+                            <input class="form-control" type="search" placeholder="Search Game Title..." aria-label="Search" name="title">
+                        </form>
+
+                        <div class="list-group">
+                            <a href="/" class="d-flex justify-content-between list-group-item list-group-item-action text-white bg-dark">
+                                <i class="bi bi-controller"></i>
+                                <span>Games</span>
+                                <span>{{totalGames}}</span>
+                            </a>
+
+                            <a href="/books" class="d-flex justify-content-between list-group-item list-group-item-action">
+                                <i class="bi bi-book"></i>
+                                <span>Books</span>
+                                <span>{{totalBooks}}</span>
+                            </a>
+
+                            <a href="/movies" class="d-flex justify-content-between list-group-item list-group-item-action">
+                                <i class="bi bi-camera-video"></i>
+                                <span>Movies</span>
+                                <span>{{totalMovies}}</span>
+                            </a>
+
+                            <a href="/tvshows" class="d-flex justify-content-between list-group-item list-group-item-action">
+                                <i class="bi bi-tv"></i>
+                                <span>TV Shows</span>
+                                <span>{{totalTVShows}}</span>
+                            </a>
+                        </div>
+
+                        @unless(user)
+                            <div id="newsletter_card">
+
+                            </div>
+                        @end
+
+                    </div>
+                @end
+
+                @unless(firstGame)
+					<div class="col-lg-3"></div>
+				@end
+
+            @end
+
+
+        </div>
+
+    </div>
+
+    <script src="scripts/games.js"></script>
+
+@include('partials/footer')

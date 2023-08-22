@@ -9,7 +9,7 @@ export default class AuthenticationController {
 	// private readonly authenticateUserUseCase: AuthenticateUserUseCasePort = new AuthenticateUserUseCase(new UsersRepository())
 
 	getViewLogin(req: Request, res: Response) {
-		return res.render("pages/auth/login", {
+		return res.render("pages.auth.login", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			captcha: res.recaptcha,
@@ -32,7 +32,7 @@ export default class AuthenticationController {
 		let email_readonly = null;
 		if (email) email_readonly = true;
 
-		return res.render("pages/auth/register", {
+		return res.render("pages.auth.register", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			username,
@@ -104,7 +104,7 @@ export default class AuthenticationController {
 	}
 
 	getViewForgetPassword(req: Request, res: Response) {
-		return res.render("pages/auth/forgetPassword", {
+		return res.render("pages.auth.forgetPassword", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 		});
@@ -139,7 +139,7 @@ export default class AuthenticationController {
 			return res.redirect("/forgetPassword");
 		}
 
-		return res.render("pages/auth/resetPassword", {
+		return res.render("pages.auth.resetPassword", {
 			email,
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
@@ -158,7 +158,7 @@ export default class AuthenticationController {
 	}
 
 	getViewResendConfirmEmailLink(req: Request, res: Response) {
-		return res.render("pages/auth/confirmEmail", {
+		return res.render("pages.auth.confirmEmail", {
 			flash_success: req.flash("success"),
 		});
 	}

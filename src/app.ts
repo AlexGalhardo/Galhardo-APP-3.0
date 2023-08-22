@@ -13,16 +13,19 @@ import profileRoutes from "./routes/profileRoutes";
 import publicRoutes from "./routes/publicRoutes";
 import apiRoutes from "./routes/apiRoutes";
 
+import engine from 'express-edge';
+
 import "express-async-errors";
 
 global.SESSION_USER = null;
 
 const app = express();
 
-app.set("view engine", "mustache");
-app.set("views", path.join(__dirname, "views"));
-app.engine("mustache", mustache())
-
+app.use(engine)
+	.set("view engine", "mustache")
+	.set("views", path.join(__dirname, "views"))
+	.disable('view cache')
+	// .engine("mustache", mustache())
 	.use(cookieParser())
 	.use(cors())
 	.use(flash())
@@ -46,7 +49,7 @@ app.engine("mustache", mustache())
 	.use("/api", apiRoutes)
 	.use(publicRoutes)
 	.use((_, res: Response) => {
-		return res.render("pages/404", {
+		return res.render("pages.error", {
 			user: global.SESSION_USER,
 		});
 	})

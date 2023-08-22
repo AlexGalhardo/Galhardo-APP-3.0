@@ -6,7 +6,7 @@ import Header from "../utils/Header";
 import Users from "../repositories/Users.repository";
 
 export default class ShopController {
-	static async getViewShop (req: Request, res: Response) {
+	static async getViewShop(req: Request, res: Response) {
 		const shopCartItens = await Users.getShopCartItens();
 		const shopCartTotalAmount = await Users.getShopCartTotalAmount();
 		const totalItensShopCart = await Users.getTotalItensShopCart();
@@ -16,7 +16,7 @@ export default class ShopController {
 			return res.redirect("/");
 		}
 
-		return res.render("pages/shop/shop_checkout", {
+		return res.render("pages.shop/shop_checkout", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			shopCartItens,
@@ -27,7 +27,7 @@ export default class ShopController {
 		});
 	}
 
-	static async removeCartItem (req: Request, res: Response) {
+	static async removeCartItem(req: Request, res: Response) {
 		const { item_id } = req.params;
 
 		if (await Users.removeShopCartItem(item_id)) {
@@ -39,7 +39,7 @@ export default class ShopController {
 		return res.redirect("/shop");
 	}
 
-	static async verifyIfUserIsAlreadyAStripeCustomer () {
+	static async verifyIfUserIsAlreadyAStripeCustomer() {
 		if (!global.SESSION_USER.stripe_customer_id) {
 			const customer = await stripe.customers.create({
 				description: "Customer created in Subscription checkout!",
@@ -51,7 +51,7 @@ export default class ShopController {
 		return global.SESSION_USER.stripe_customer_id;
 	}
 
-	static async verifyIfUserAlreadyHasAStripeCardRegistred (req: Request) {
+	static async verifyIfUserAlreadyHasAStripeCardRegistred(req: Request) {
 		const { card_number, card_exp_year, card_exp_month, card_cvc } = req.body;
 
 		const customerCard = {
@@ -78,7 +78,7 @@ export default class ShopController {
 		return cardToken.id;
 	}
 
-	static async postShop (req: Request, res: Response, next: NextFunction) {
+	static async postShop(req: Request, res: Response, next: NextFunction) {
 		try {
 			const {
 				total_shop_amount,
@@ -145,7 +145,7 @@ export default class ShopController {
 			RabbitMQ.sendMessage("shop-transactions-queue", JSON.stringify(shopTransactionObject));
 			RabbitMQ.consumeMessage("shop-transactions-queue");
 
-			return res.render("pages/shop/shop_checkout_status", {
+			return res.render("pages.shop/shop_checkout_status", {
 				flash_success: "Shop Transaction Created with Success!",
 				shopTransactionObject,
 				user: global.SESSION_USER,

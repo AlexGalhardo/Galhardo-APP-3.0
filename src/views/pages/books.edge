@@ -1,0 +1,221 @@
+@include('partials/header')
+
+	<div class="container col-lg-12 mt-3">
+
+      	<div class="row">
+
+            <input type="text" id="app_url" hidden value="{{app_url}}" readonly>
+
+            @unless(books)
+                @unless(book)
+                    <div class="text-center alert alert-warning" role="alert" class="mb-3">
+                        <b class="fw-bold">No books found!</b>
+                    </div>
+                @end
+            @end
+
+
+            @unless(flash_success)
+                <div class="text-center alert alert-success" role="alert">
+                    <b>{{flash_success}}</b>
+                </div>
+            @end
+
+            @unless(flash_warning)
+                <div class="text-center alert alert-warning" role="alert">
+                    <b>{{flash_warning}}</b>
+                </div>
+            @end
+
+            @if(book)
+                <input id="book_id" name="book_id" type="hidden" value="{{id}}">
+                <input id="book_price_value" name="book_price_value" type="hidden" value="{{price}}">
+
+                <div class="col-lg-3 text-center">
+                    <img id="book_image" src="{{image}}" class="shadow mx-auto d-block w-75 image-fluid mb-3" alt="book_image">
+
+                    <button onclick="buyThisBook()" class="btn btn-outline-success @unless(user)disabled@end fw-bold w-75 mb-3 shadow" id="button_buy_this_book"><i class="bi bi-cash-coin"></i> Buy for <span id="book_price">{{price}}</span></button>
+
+                    @if(user.admin)
+                        <a id="book_admin_update_link" href="/admin/update/book/{{id}}" class="w-75 shadow btn btn-warning shadow-sm">
+                        <i class="bi bi-unlock-fill"></i>
+                        Edit This Book</a>
+                    @end
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="card-body">
+
+                        <input id="book_id" name="book_id" type="hidden" value="{{id}}">
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <h3 class="card-title">
+                                <a target="_blank" id="amazon_link" style="text-decoration:none;" href="{{amazon_link}}" class="card-link">
+                                    <span id="book_title" class="fw-bold">{{title}}</span>
+                                    (<span id="book_year_release" class="text-muted">{{year_release}}</span>)
+                                </a>
+                            </h3>
+                        </div>
+
+                        <p class="card-text" id="book_resume">{{resume}}</p>
+
+                        <ul class="mt-3">
+
+                            <li><b>Author:</b></small> <small id="book_author">{{author}}</small></li>
+
+                            <li><b>Genres:</b> <small id="book_genres">{{genres}}</small></li>
+
+                            <li><b>Pages:</b> <small id="book_pages">{{pages}}</small></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END BOOK POST -->
+
+
+                <div class="col-lg-3 mb-3">
+
+                    <form class="mb-3" action="/searchBook" method="GET">
+                        <input class="form-control" type="search" placeholder="Search Book Title..." aria-label="Search" name="title">
+                    </form>
+
+                    <div class="list-group">
+                        <a href="/" class="d-flex justify-content-between list-group-item list-group-item-action" aria-current="true">
+                            <i class="bi bi-controller"></i>
+                            <span>Games</span>
+                            <span>{{totalGames}}</span>
+                        </a>
+
+                        <a href="/books" class="d-flex justify-content-between list-group-item list-group-item-action text-white bg-dark">
+                            <i class="bi bi-book"></i>
+                            <span>Books</span>
+                            <span>{{totalBooks}}</span>
+                        </a>
+
+                        <a href="/movies" class="d-flex justify-content-between list-group-item list-group-item-action">
+                            <i class="bi bi-tv"></i>
+                            <span>Movies</span>
+                            <span>{{totalBooks}}</span>
+                        </a>
+
+                        <a href="/tvshows" class="d-flex justify-content-between list-group-item list-group-item-action">
+                            <i class="bi bi-tv"></i>
+                            <span>TV Shows</span>
+                            <span>{{totalBooks}}</span>
+                        </a>
+                    </div>
+
+                    <button class="mt-3 w-100 btn btn-outline-primary shadow mb-3" onclick="recommendOtherBook()">
+                            <i class="bi bi-play-fill"></i>
+                            Recommend Other Book
+                    </button>
+
+                    @unless(user)
+                        <div id="newsletter_card">
+
+                        </div>
+                    @end
+                </div>
+            @end
+
+
+
+
+
+
+
+            @if(books)
+
+                <div class="col-lg-3 text-center">
+                    <img id="book_image" src="{{image}}" class="shadow mx-auto d-block w-75 image-fluid mb-3" alt="book_image">
+                </div>
+
+
+
+                <div class="col-lg-6">
+
+                    <div class="card-body">
+
+                        <input id="book_id" name="book_id" type="hidden" value="{{id}}">
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="card-title">
+                                <a target="_blank" id="amazon_link" style="text-decoration:none;" href="{{amazon_link}}" class="card-link">
+                                    <span id="book_title" class="fw-bold text-primary">{{title}}</span>
+                                    (<span id="book_year_release" class="text-muted">{{year_release}}</span>)
+                                </a>
+                            </h5>
+                        </div>
+
+                        <small class="card-text" id="book_resume">{{resume}}</small>
+
+                        <ul class="mt-3">
+
+                            <li><small><b>Author:</b></small> <small id="book_author">{{author}}</small></li>
+
+                            <li><small><b>Genres:</b></small> <small id="book_genres">{{genres}}</small></li>
+
+                            <li><small><b>Pages:</b></small> <small id="book_pages">{{pages}}</small></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END BOOK POST -->
+
+
+
+                @if(firstBook)
+                    <div class="col-lg-3 mb-3">
+
+                        <form class="mb-3" action="/searchBook" method="GET">
+                            <input class="form-control" type="search" placeholder="Search Book Title..." aria-label="Search" name="title">
+                        </form>
+
+                        <div class="list-group">
+                            <a href="/" class="d-flex justify-content-between list-group-item list-group-item-action" aria-current="true">
+                                <i class="bi bi-controller"></i>
+                                <span>Games</span>
+                                <span>{{totalGames}}</span>
+                            </a>
+
+                            <a href="/books" class="d-flex justify-content-between list-group-item list-group-item-action bg-dark text-white">
+                                <i class="bi bi-book"></i>
+                                <span>Books</span>
+                                <span>{{totalBooks}}</span>
+                            </a>
+
+                            <a href="/books" class="d-flex justify-content-between list-group-item list-group-item-action">
+                                <i class="bi bi-tv"></i>
+                                <span>Movies</span>
+                                <span>{{totalBooks}}</span>
+                            </a>
+
+                            <a href="/books" class="d-flex justify-content-between list-group-item list-group-item-action">
+                                <i class="bi bi-tv"></i>
+                                <span>TV Shows</span>
+                                <span>{{totalBooks}}</span>
+                            </a>
+                        </div>
+
+                        @unless(user)
+                            <div id="newsletter_card">
+
+                            </div>
+                        @end
+
+                    </div>
+                @end
+
+                @unless(firstBook)<div class="col-lg-3"></div>@end
+
+            @end
+
+
+        </div>
+        <!-- END ROW -->
+
+    </div>
+    <!-- END CONTAINER -->
+
+    <script src="scripts/books.js"></script>
+
+@include('partials/footer')

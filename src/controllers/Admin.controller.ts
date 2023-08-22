@@ -8,15 +8,15 @@ import TVShows from "../repositories/TVShows.repository";
 import { createBlogDTO } from "src/utils/InputTypes";
 
 export default class AdminController {
-	static getViewCreateBlogPost (req: Request, res: Response) {
-		return res.render("pages/admin/createBlogPost", {
+	static getViewCreateBlogPost(req: Request, res: Response) {
+		return res.render("pages.admin.createBlogPost", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			user: global.SESSION_USER,
 		});
 	}
 
-	static async postCreateBlogPost (req: Request, res: Response) {
+	static async postCreateBlogPost(req: Request, res: Response) {
 		const { blog_image, blog_title, blog_category, blog_resume, blog_body } = req.body;
 
 		const blogPostObject: createBlogDTO = {
@@ -38,11 +38,11 @@ export default class AdminController {
 		return res.redirect(`/admin/update/blogPost/${blogPost.id}`);
 	}
 
-	static async getViewUpdateBlogPost (req: Request, res: Response) {
+	static async getViewUpdateBlogPost(req: Request, res: Response) {
 		const { blog_id } = req.params;
 		const blogPost = await Blog.getById(blog_id);
 
-		return res.render("pages/admin/updateBlogPost", {
+		return res.render("pages.admin.updateBlogPost", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			blogPost,
@@ -50,7 +50,7 @@ export default class AdminController {
 		});
 	}
 
-	static async postUpdateBlogPost (req: Request, res: Response) {
+	static async postUpdateBlogPost(req: Request, res: Response) {
 		const { blog_id, blog_title, blog_resume, blog_image, blog_category, blog_body } = req.body;
 
 		const blogPostObject = {
@@ -73,7 +73,7 @@ export default class AdminController {
 		return res.redirect(`/admin/update/blogPost/${blogPost.id}`);
 	}
 
-	static async postDeleteBlogPost (req: Request, res: Response) {
+	static async postDeleteBlogPost(req: Request, res: Response) {
 		const { blog_id } = req.params;
 
 		if (await Blog.delete(blog_id)) {
@@ -85,13 +85,13 @@ export default class AdminController {
 	}
 
 	/** ******* GAME ************** */
-	static getViewCreateGame (req: Request, res: Response) {
-		return res.render("pages/admin/createGame", {
+	static getViewCreateGame(req: Request, res: Response) {
+		return res.render("pages.admin.createGame", {
 			user: global.SESSION_USER,
 		});
 	}
 
-	static async postCreateGame (req: Request, res: Response) {
+	static async postCreateGame(req: Request, res: Response) {
 		const {
 			game_title,
 			game_year_release,
@@ -129,11 +129,11 @@ export default class AdminController {
 		return res.redirect(`/admin/update/game/${game.id}`);
 	}
 
-	static async getViewUpdateGame (req: Request, res: Response) {
+	static async getViewUpdateGame(req: Request, res: Response) {
 		const { game_id } = req.params;
 		const game = await Games.getById(game_id);
 
-		res.render("pages/admin/updateGame", {
+		res.render("pages.admin.updateGame", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			game,
@@ -141,7 +141,7 @@ export default class AdminController {
 		});
 	}
 
-	static async postUpdateGame (req: Request, res: Response) {
+	static async postUpdateGame(req: Request, res: Response) {
 		const {
 			game_id,
 			game_title,
@@ -183,7 +183,7 @@ export default class AdminController {
 		return res.redirect(`/admin/update/game/${game_id}`);
 	}
 
-	static async postDeleteGame (req: Request, res: Response) {
+	static async postDeleteGame(req: Request, res: Response) {
 		const { game_id } = req.params;
 		if (await Games.delete(game_id)) {
 			req.flash("success", `SUCCESS: Game DELETED!`);
@@ -194,13 +194,13 @@ export default class AdminController {
 	}
 
 	/** ******* BOOK ************** */
-	static getViewCreateBook (req: Request, res: Response) {
-		return res.render("pages/admin/createBook", {
+	static getViewCreateBook(req: Request, res: Response) {
+		return res.render("pages.admin.createBook", {
 			user: global.SESSION_USER,
 		});
 	}
 
-	static async postCreateBook (req: Request, res: Response) {
+	static async postCreateBook(req: Request, res: Response) {
 		const {
 			book_title,
 			book_year_release,
@@ -235,11 +235,11 @@ export default class AdminController {
 		return res.redirect(`/admin/update/book/${book.id}`);
 	}
 
-	static async getViewUpdateBook (req: Request, res: Response) {
+	static async getViewUpdateBook(req: Request, res: Response) {
 		const { book_id } = req.params;
 		const book = await Books.getById(book_id);
 
-		res.render("pages/admin/updateBook", {
+		res.render("pages.admin.updateBook", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			book,
@@ -247,7 +247,7 @@ export default class AdminController {
 		});
 	}
 
-	static async postUpdateBook (req: Request, res: Response) {
+	static async postUpdateBook(req: Request, res: Response) {
 		const {
 			book_id,
 			book_title,
@@ -283,7 +283,7 @@ export default class AdminController {
 		return res.redirect(`/admin/update/book/${book.id}`);
 	}
 
-	static async postDeleteBook (req: Request, res: Response) {
+	static async postDeleteBook(req: Request, res: Response) {
 		const { book_id } = req.params;
 
 		if (await Books.delete(book_id)) {
@@ -295,13 +295,13 @@ export default class AdminController {
 	}
 
 	/** ******* MOVIE ************** */
-	static async getViewCreateMovie (req: Request, res: Response) {
-		return res.render("pages/admin/createMovie", {
+	static async getViewCreateMovie(req: Request, res: Response) {
+		return res.render("pages.admin.createMovie", {
 			user: global.SESSION_USER,
 		});
 	}
 
-	static async postCreateMovie (req: Request, res: Response) {
+	static async postCreateMovie(req: Request, res: Response) {
 		const {
 			movie_title,
 			movie_year_release,
@@ -337,11 +337,11 @@ export default class AdminController {
 		return res.redirect(`/admin/update/movie/${movie.id}`);
 	}
 
-	static async getViewUpdateMovie (req: Request, res: Response) {
+	static async getViewUpdateMovie(req: Request, res: Response) {
 		const { movie_id } = req.params;
 		const movie = await Movies.getById(movie_id);
 
-		return res.render("pages/admin/updateMovie", {
+		return res.render("pages.admin.updateMovie", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			movie,
@@ -349,7 +349,7 @@ export default class AdminController {
 		});
 	}
 
-	static async postUpdateMovie (req: Request, res: Response) {
+	static async postUpdateMovie(req: Request, res: Response) {
 		const {
 			movie_id,
 			movie_title,
@@ -387,7 +387,7 @@ export default class AdminController {
 		return res.redirect(`/admin/update/movie/${movie.id}`);
 	}
 
-	static async postDeleteMovie (req: Request, res: Response) {
+	static async postDeleteMovie(req: Request, res: Response) {
 		const { book_id } = req.params;
 
 		if (await Movies.delete(book_id)) {
@@ -399,13 +399,13 @@ export default class AdminController {
 	}
 
 	/** ******* TV SHOW ************** */
-	static async getViewCreateTVShow (req: Request, res: Response) {
-		return res.render("pages/admin/createTVShow", {
+	static async getViewCreateTVShow(req: Request, res: Response) {
+		return res.render("pages.admin.createTVShow", {
 			user: global.SESSION_USER,
 		});
 	}
 
-	static async postCreateTVShow (req: Request, res: Response) {
+	static async postCreateTVShow(req: Request, res: Response) {
 		const {
 			tvshow_title,
 			tvshow_year_release,
@@ -441,11 +441,11 @@ export default class AdminController {
 		return res.redirect(`/admin/update/tvshow/${tvshow.id}`);
 	}
 
-	static async getViewUpdateTVShow (req: Request, res: Response) {
+	static async getViewUpdateTVShow(req: Request, res: Response) {
 		const { tvshow_id } = req.params;
 		const tvshow = await TVShows.getById(tvshow_id);
 
-		return res.render("pages/admin/updateTVShow", {
+		return res.render("pages.admin.updateTVShow", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			tvshow,
@@ -453,7 +453,7 @@ export default class AdminController {
 		});
 	}
 
-	static async postUpdateTVShow (req: Request, res: Response) {
+	static async postUpdateTVShow(req: Request, res: Response) {
 		const {
 			tvshow_id,
 			tvshow_title,
@@ -491,7 +491,7 @@ export default class AdminController {
 		return res.redirect(`/admin/update/tvshow/${tvshow.id}`);
 	}
 
-	static async postDeleteTVShow (req: Request, res: Response) {
+	static async postDeleteTVShow(req: Request, res: Response) {
 		const { book_id } = req.params;
 
 		if (await TVShows.delete(book_id)) {

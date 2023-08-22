@@ -14,7 +14,7 @@ export default class MoviesController {
 		const totalMovies = await Movies.getTotal();
 		const totalTVShows = await TVShows.getTotal();
 
-		return res.render("pages/movies", {
+		return res.render("pages.movies", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			movie,
@@ -44,7 +44,7 @@ export default class MoviesController {
 
 		if (searchedMovies.length > 1) {
 			searchedMovies[0].firstMovie = true;
-			return res.render("pages/movies", {
+			return res.render("pages.movies", {
 				flash_success: `${searchedMovies.length
 					} Games Found From Search Title: ${searchMovieTitle.toUpperCase()}`,
 				movies: searchedMovies,
@@ -53,7 +53,7 @@ export default class MoviesController {
 			});
 		}
 
-		return res.render("pages/movies", {
+		return res.render("pages.movies", {
 			flash_success: `1 Game Found From Search Title: ${searchMovieTitle.toUpperCase()}`,
 			movie: searchedMovies[0],
 			user: global.SESSION_USER,

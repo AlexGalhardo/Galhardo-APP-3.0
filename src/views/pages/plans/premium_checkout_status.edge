@@ -1,0 +1,90 @@
+@include('partials/header')
+
+	<div class="container col-lg-12 mt-3 mx-auto">
+
+		@unless(flash_success)
+            <div class="text-center alert alert-success" role="alert">
+                <b>{{flash_success}}</b>
+            </div>
+        @end
+
+        @unless(flash_warning)
+            <div class="text-center alert alert-warning" role="alert">
+                <b>{{flash_warning}}</b>
+            </div>
+        @end
+
+		<div class="row">
+
+            <div class="col-lg-6">
+				<div class="card mb-4 rounded-3 shadow-sm text-center">
+					<div class="card-header py-3 bg-info">
+						<h4 class="my-0 fw-normal">You Are PREMIUM!</h4>
+					</div>
+
+					<div class="card-body">
+						<h1 class="card-title plans-card-title">$ 1.99<small class="text-muted fw-light">/month</small></h1>
+						<ul class="list-unstyled mt-3 mb-4">
+							<li>✔️ Site Ilimited Recomendations</li>
+							<li>✔️ Get Recommendations in Email</li>
+							<li>✔️ Get Recommendations in Telegram</li>
+						</ul>
+					</div>
+
+				</div>
+            </div>
+
+	        <div class="col-lg-6">
+        		{{#subscriptionTransactionObject}}
+					<div class="card-body">
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<th></i> TRANSACTION_ID</th>
+									<td>{{transaction_id}}</td>
+								</tr>
+								<tr>
+									<th>PAYMENT_METHOD</th>
+									<td>{{card_id}}</td>
+								</tr>
+								<tr>
+									<th>CARD_BRAND</th>
+									<td>{{card_brand}}</td>
+								<tr>
+									<th>CARD_LAST4</th>
+									<td>{{card_last4}}</td>
+								<tr>
+									<th>CARD_EXP_MONTH</th>
+									<td>{{card_exp_month}}</td>
+								<tr>
+									<th>CARD_EXP_YEAR</th>
+									<td>{{card_exp_year}}</td>
+								<tr>
+									<th>SUBSCRIPTION_STATUS</th>
+									<td>{{status}}</td>
+								<tr>
+									<th>CUSTOMER_STRIPE_ID</th>
+									<td>{{stripe_customer_id}}</td>
+								<tr>
+									<th>CUSTOMER_EMAI</th>
+									<td>{{user.email}}</td>
+								<tr>
+									<th>CURRENT_PERIOD_START</th>
+									<td>{{current_period_start}}</td>
+								<tr>
+									<th>CURRENT_PERIOD_END</th>
+									<td>{{current_period_end}}</td>
+								<tr>
+									<th>CREATED_AT</th>
+									<td>{{created_at}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+        		{{/subscriptionTransactionObject}}
+	        </div>
+
+	    </div>
+
+	</div>
+

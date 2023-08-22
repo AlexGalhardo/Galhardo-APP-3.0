@@ -7,7 +7,7 @@ import NodeMailer from "../utils/NodeMailer";
 
 export default class ContactController {
     static getViewContact(req: Request, res: Response) {
-        res.render("pages/contact", {
+        res.render("pages.contact", {
             flash_success: req.flash("success"),
             flash_warning: req.flash("warning"),
             user: global.SESSION_USER,

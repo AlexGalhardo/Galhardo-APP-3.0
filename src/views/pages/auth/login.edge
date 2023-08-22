@@ -1,0 +1,108 @@
+<html lang="en-US">
+
+<head>
+
+    <title>Login - Galhardo APP</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- DESCRIPTION -->
+    <meta name="description" content="Login into your Galhardo APP account.">.
+
+    <!-- BOOTSTRAP 5 CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- BOOTSTRAP 5 JS -->
+    <script src="/scripts/bootstrap.bundle.min.js"></script>
+
+    <!-- BOOTSTRAP 5 ICONS -->
+    <link rel="stylesheet" href="/css/bootstrap-icons.css">
+
+    <!-- LOADING PAGE JS -->
+    <script src="/scripts/pace.min.js"></script>
+
+    <!-- LOADING PAGE CSS -->
+    <link rel="stylesheet" href="/css/minimal.css">
+
+</head>
+
+<body style="background-color: #F8F9FA;">
+
+    <div class="container col-lg-3 mt-3">
+
+        <h2 class="text-center text-muted mb-4">
+            <a class="text-decoration-none" href="/">
+                <b class="fw-bold text-primary">
+                    <i class="bi bi-cup-straw"></i>
+                    Galhardo APP
+                </b>
+            </a>
+        </h2>
+
+        @unless(flash_success)
+            <div class="text-center alert alert-success" role="alert">
+                <b>{{flash_success}}</b>
+            </div>
+        @end
+
+        @unless(flash_warning)
+            <div class="text-center alert alert-warning" role="alert">
+                <b>{{flash_warning}}</b>
+            </div>
+        @end
+
+        {{{captcha}}}
+
+        <form action="/login" method="POST">
+
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+            <div class="form-floating mb-3">
+                <input value="test@gmail.com"
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        placeholder="Enter your email"
+                        autofocus
+                        required>
+                <label for="email">Your Email Address</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="mb-3 form-control" id="password" name="password" placeholder="Enter your password" required value="test123">
+                <label for="password">Your Password</label>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="shadow mb-3 w-100 btn btn-success btn-block login-btn">Login</button>
+            </div>
+
+
+
+        </form>
+
+        <div class="text-center">
+            <p class="text-center mb-3">
+                <a href="/forgetPassword" class="text-decoration-none">
+                    <b>Forget My Password</b>
+                </a>
+            </p>
+
+            <p><a href="/register" class="text-success text-decoration-none"><b>Register Account</b></a>
+            </a></p>
+
+            <p><a href="/confirmEmail" class="text-info text-decoration-none"><b>Resend Confirm Email Link</b></a></p>
+        </div>
+
+    </div>
+
+    <script src="scripts/login.js"></script>
+
+
+</body>
+
+</html>

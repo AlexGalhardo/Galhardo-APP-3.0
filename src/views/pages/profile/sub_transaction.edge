@@ -1,0 +1,41 @@
+@include('partials/header')
+
+    <div class="container col-lg-10 text-center mt-3">
+
+        <div class="row">
+
+            <h4 class="mt-3 mb-5">
+                <span class="fw-bold"><i class="bi bi-award"></i>
+                Subscription Transaction ID:</span> <span class="fw-bold text-success">{{subsTransaction.transaction_id}}</span>
+            </h4>
+
+            <div class="col-lg-6">
+                {{#subsTransaction}}
+                    <ul class="list-group list-group-flush text-start">
+                        <li class="list-group-item"><b>PLAN_NAME:</b> {{plan_name}}</li>
+                        <li class="list-group-item"><b>CURRENT PERIOD START:</b> {{current_period_start}}</li>
+                        <li class="list-group-item"><b>CURRENT PERIOD END:</b> {{current_period_end}}</li>
+                        <li class="list-group-item"><b>STATUS:</b> {{status}}</li>
+
+                        <li class="list-group-item"><b>CREATED:</b> {{created_at}}</li>
+                    </ul>
+                {{/subsTransaction}}
+            </div>
+
+            <div class="col-lg-6">
+                {{#subsTransaction}}
+                    <ul class="list-group list-group-flush text-start">
+                        <li class="list-group-item"><b>CARD ID:</b> {{card_id}}</li>
+                        <li class="list-group-item"><b>CARD BRAND:</b> {{card_brand}}</li>
+                        <li class="list-group-item"><b>CARD EXP MONTH:</b> {{card_exp_month}}</li>
+                        <li class="list-group-item"><b>CARD EXP YEAR:</b> {{card_exp_year}}</li>
+                        <li class="list-group-item"><b>CARD LAST4:</b> {{card_last4}}</li>
+
+                    </ul>
+                {{/subsTransaction}}
+            </div>
+
+        </div>
+
+    </div>
+

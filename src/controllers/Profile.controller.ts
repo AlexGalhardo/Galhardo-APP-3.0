@@ -6,8 +6,8 @@ import StripeRepository from "../repositories/Stripe.repository";
 import Users from "../repositories/Users.repository";
 
 export default class ProfileController {
-	static async getViewProfile (req: Request, res: Response) {
-		return res.render("pages/profile/profile", {
+	static async getViewProfile(req: Request, res: Response) {
+		return res.render("pages.profile/profile", {
 			user: global.SESSION_USER,
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
@@ -15,7 +15,7 @@ export default class ProfileController {
 		});
 	}
 
-	static logout (req: Request, res: Response) {
+	static logout(req: Request, res: Response) {
 		req.session.destroy((error) => {
 			if (error) throw new Error(error);
 		});
@@ -23,7 +23,7 @@ export default class ProfileController {
 		return res.redirect("/login");
 	}
 
-	static async updateProfile (req: Request, res: Response) {
+	static async updateProfile(req: Request, res: Response) {
 		const {
 			username,
 			email,
@@ -68,53 +68,53 @@ export default class ProfileController {
 		return res.redirect("/profile");
 	}
 
-	static async getViewMyShopTransactions (req: Request, res: Response) {
+	static async getViewMyShopTransactions(req: Request, res: Response) {
 		const shopTransactions = await StripeRepository.getShopTransactionsByUserId(global.SESSION_USER.id);
 
-		return res.render("pages/profile/my_shop_transactions", {
+		return res.render("pages.profile/my_shop_transactions", {
 			user: global.SESSION_USER,
 			shopTransactions,
 			header: Header.profile("My Shop Transactions - Galhardo APP"),
 		});
 	}
 
-	static async getViewShopTransactionByID (req: Request, res: Response) {
+	static async getViewShopTransactionByID(req: Request, res: Response) {
 		const { shop_transaction_id } = req.params;
 
 		const shopTransaction = await StripeRepository.getShopTransactionById(shop_transaction_id);
 
 		shopTransaction!.products = JSON.parse(shopTransaction!.products);
 
-		return res.render("pages/profile/shop_transaction", {
+		return res.render("pages.profile/shop_transaction", {
 			user: global.SESSION_USER,
 			shopTransaction,
 			header: Header.profile("Shop Transaction - Galhardo APP"),
 		});
 	}
 
-	static async getViewMySubscriptionsTransactions (req: Request, res: Response) {
+	static async getViewMySubscriptionsTransactions(req: Request, res: Response) {
 		const subsTransactions = await StripeRepository.getSubscriptionsTransactionsByUserId(global.SESSION_USER.id);
 
-		return res.render("pages/profile/my_subs_transactions", {
+		return res.render("pages.profile/my_subs_transactions", {
 			user: global.SESSION_USER,
 			subsTransactions,
 			header: Header.profile("My Subscriptions Transactions - Galhardo APP"),
 		});
 	}
 
-	static async getViewSubscriptionTransactionByID (req: Request, res: Response) {
+	static async getViewSubscriptionTransactionByID(req: Request, res: Response) {
 		const { subs_transaction_id } = req.params;
 
 		const subsTransaction = await StripeRepository.getSubscriptionTransactionById(subs_transaction_id);
 
-		return res.render("pages/profile/sub_transaction", {
+		return res.render("pages.profile/sub_transaction", {
 			user: global.SESSION_USER,
 			subsTransaction,
 			header: Header.profile("Subs Transaction - Galhardo APP"),
 		});
 	}
 
-	static async deleteStripeCard (req: Request, res: Response) {
+	static async deleteStripeCard(req: Request, res: Response) {
 		const { stripe_card_id } = req.params;
 
 		await StripeRepository.deleteStripeCard(global.SESSION_USER.id, stripe_card_id);
@@ -123,7 +123,7 @@ export default class ProfileController {
 		return res.redirect("/profile");
 	}
 
-	static async cancelStripeSubscriptionRenewAtPeriodEnd (req: Request, res: Response) {
+	static async cancelStripeSubscriptionRenewAtPeriodEnd(req: Request, res: Response) {
 		const { stripe_currently_subscription_id } = req.params;
 
 		await StripeRepository.cancelStripeSubscriptionRenewAtPeriodEnd(

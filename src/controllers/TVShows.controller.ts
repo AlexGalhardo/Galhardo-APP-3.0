@@ -7,14 +7,14 @@ import Movies from "../repositories/Movies.repository";
 import TVShows from "../repositories/TVShows.repository";
 
 export default class TVShowsController {
-	static async getViewTVShows (req: Request, res: Response) {
+	static async getViewTVShows(req: Request, res: Response) {
 		const tvshow = await TVShows.getRandom();
 		const totalGames = await Games.getTotal();
 		const totalBooks = await Books.getTotal();
 		const totalMovies = await Movies.getTotal();
 		const totalTVShows = await TVShows.getTotal();
 
-		return res.render("pages/tvshows", {
+		return res.render("pages.tvshows", {
 			flash_success: req.flash("success"),
 			flash_warning: req.flash("warning"),
 			tvshow,
@@ -28,7 +28,7 @@ export default class TVShowsController {
 		});
 	}
 
-	static async getSearchTVShowTitle (req: Request, res: Response) {
+	static async getSearchTVShowTitle(req: Request, res: Response) {
 		const searchTVShowTitle = req.query.title;
 
 		if (!searchTVShowTitle) {
@@ -44,7 +44,7 @@ export default class TVShowsController {
 
 		if (searchTVShows.length > 1) {
 			searchTVShows[0].firstTVShow = true;
-			return res.render("pages/tvshows", {
+			return res.render("pages.tvshows", {
 				flash_success: `${searchTVShows.length
 					} TVShows Found From Search Title: ${searchTVShowTitle.toUpperCase()}`,
 				tvshows: searchTVShows,
@@ -53,7 +53,7 @@ export default class TVShowsController {
 			});
 		}
 
-		return res.render("pages/tvshows", {
+		return res.render("pages.tvshows", {
 			flash_success: `1 TVShow Found From Search Title: ${searchTVShowTitle.toUpperCase()}`,
 			tvshow: searchTVShows[0],
 			user: global.SESSION_USER,

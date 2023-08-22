@@ -1,0 +1,58 @@
+@include('partials/header')
+
+	<div class="container col-lg-6 mt-3 text-center">
+
+		<div class="row">
+
+            @unless(flash_warning)
+                <div class="text-center alert alert-warning" role="alert">
+                    <b>{{flash_warning}}</b>
+                </div>
+            @end
+
+            <h3 class="fw-bold text-muted"> Enjoy even more the APP with our paid plans!</h3>
+
+            <div class="col-lg-6 mt-5">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-bold text-dark">
+                            FREE
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title plans-card-title">$ 0<small class="text-muted fw-light">/month</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4 text-start">
+                            <li>✔️ 100 Site Recomendations Daily</li>
+                            <li>✔️ 100 API Requests Daily</li>
+                            <li>❌ Get Recommendations in Email</li>
+                            <li>❌ Get Recommendations in Telegram</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mt-5">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-bold text-info">
+                            <i class="bi bi-award"></i>
+                            PREMIUM
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title plans-card-title">$1.99<small class="text-muted fw-light">/month</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4 text-start">
+                            <li>✔️ 10k Recomendations Daily</li>
+                            <li>✔️ 10k API Requests Daily</li>
+                            <li>✔️ Get Recommendations in your Email</li>
+                            <li>✔️ Get Recommendations in your Telegram</li>
+                        </ul>
+                        <a href="/plan/premium/checkout" class="shadow w-100 btn btn-lg btn-info"><i class="bi bi-check-circle"></i> Sign PREMIUM</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
